@@ -14,7 +14,7 @@ const SettingsSchema = new Schema<ISettings>(
     reviewIntervalMonths: { type: Number, default: 6, required: true },
     retentionPeriodYears: { type: Number, default: 2, required: true },
     allowedEmailDomain: { type: String, default: "plannorium.com", required: true },
-    hrEmail: { type: String, default: "hr@plannorium.com", required: true },
+    hrEmail: { type: String, default: "team@plannorium.com", required: true },
     updatedBy: { type: String },
   },
   {

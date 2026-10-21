@@ -15,7 +15,7 @@ export default async function AdminSettingsPage() {
       initialSettings={{
         reviewIntervalMonths: settingsDoc?.reviewIntervalMonths ?? 6,
         retentionPeriodYears: settingsDoc?.retentionPeriodYears ?? 2,
-        hrEmail: settingsDoc?.hrEmail || process.env.HR_EMAIL || "hr@plannorium.com",
+        hrEmail: settingsDoc?.hrEmail || process.env.EMAIL_FROM || "team@plannorium.com",
       }}
       allowedEmailDomain={getAllowedEmailDomain()}
     />

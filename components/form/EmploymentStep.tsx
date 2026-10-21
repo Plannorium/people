@@ -21,7 +21,7 @@ interface EmploymentStepProps {
 
 export const EmploymentStep: React.FC<EmploymentStepProps> = ({
   employmentData,
-  hrEmail = "hr@plannorium.com",
+  hrEmail = "team@plannorium.com",
 }) => {
   const router = useRouter();
   const { t } = useLanguage();

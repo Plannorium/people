@@ -1,5 +1,4 @@
-const EMAIL_FROM = process.env.EMAIL_FROM || "people@plannorium.com";
-const HR_EMAIL = process.env.HR_EMAIL || "hr@plannorium.com";
+const EMAIL_FROM = process.env.EMAIL_FROM || "team@plannorium.com";
 
 export interface SendReminderParams {
   toEmail: string;
@@ -36,7 +35,7 @@ export async function sendReminderEmail(params: SendReminderParams): Promise<Sen
     "",
     actionUrl,
     "",
-    `Questions? Reply to this email or contact ${HR_EMAIL}.`,
+    `Questions? Reply to this email or contact ${EMAIL_FROM}.`,
     "",
     "Plannorium People",
   ].join("\n");
@@ -61,7 +60,7 @@ export async function sendReminderEmail(params: SendReminderParams): Promise<Sen
       body: JSON.stringify({
         from: EMAIL_FROM,
         to: [params.toEmail],
-        reply_to: HR_EMAIL,
+        reply_to: EMAIL_FROM,
         subject,
         text,
       }),

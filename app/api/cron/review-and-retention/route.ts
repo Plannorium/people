@@ -31,7 +31,7 @@ async function run(req: NextRequest) {
         reviewIntervalMonths: 6,
         retentionPeriodYears: 2,
         allowedEmailDomain: "plannorium.com",
-        hrEmail: "hr@plannorium.com",
+        hrEmail: process.env.EMAIL_FROM || "team@plannorium.com",
       });
     }
 

@@ -129,7 +129,7 @@ export default async function OnboardingStepPage({
       return (
         <EmploymentStep
           employmentData={employee.employment as any}
-          hrEmail={settings?.hrEmail || process.env.HR_EMAIL || "hr@plannorium.com"}
+          hrEmail={settings?.hrEmail || process.env.EMAIL_FROM || "team@plannorium.com"}
         />
       );
     }

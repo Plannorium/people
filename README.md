@@ -49,8 +49,7 @@ FIELD_ENCRYPTION_KEY= # 32-byte base64 encoded string: openssl rand -base64 32
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
-EMAIL_FROM=people@plannorium.com
-HR_EMAIL=hr@plannorium.com
+EMAIL_FROM=team@plannorium.com
 RESEND_API_KEY=
 CRON_SECRET=
 ```
