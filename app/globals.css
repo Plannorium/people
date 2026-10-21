@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/*
+ * Plannorium People — design tokens
+ * Modelled on Apple's system colours: grouped backgrounds, label hierarchy, hairline
+ * separators. Light and dark follow the device setting.
+ */
+:root {
+  color-scheme: light dark;
+
+  --canvas: #f5f5f7;            /* systemGroupedBackground */
+  --surface: #ffffff;           /* secondarySystemGroupedBackground */
+  --surface-2: #f5f5f7;         /* nested blocks inside a surface */
+  --fill: rgba(118, 118, 128, 0.12);
+  --fill-strong: rgba(118, 118, 128, 0.2);
+
+  --label: #1d1d1f;
+  --label-2: #6e6e73;
+  --label-3: #a1a1a6;
+  --separator: rgba(60, 60, 67, 0.13);
+
+  --primary: #1d1d1f;
+  --on-primary: #ffffff;
+  --tint: #047857;              /* Plannorium green, darkened for 5.5:1 on white */
+  --call: #248a3d;
+  --on-call: #ffffff;
+
+  --success: #248a3d;
+  --warning: #b25000;
+  --danger: #d70015;
+
+  --material: rgba(245, 245, 247, 0.78);
+  --shadow-card: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-pop: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-thumb: 0 0 0 0.5px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #2c2c2e;
+    --fill: rgba(118, 118, 128, 0.24);
+    --fill-strong: rgba(118, 118, 128, 0.34);
+
+    --label: #f5f5f7;
+    --label-2: #98989d;
+    --label-3: #636366;
+    --separator: rgba(255, 255, 255, 0.1);
+
+    --primary: #f5f5f7;
+    --on-primary: #000000;
+    --tint: #34d399;
+    --call: #30d158;
+    --on-call: #00230d;
+
+    --success: #30d158;
+    --warning: #ff9f0a;
+    --danger: #ff453a;
+
+    --material: rgba(22, 22, 23, 0.72);
+    --shadow-card: 0 0 0 0.5px rgba(255, 255, 255, 0.08);
+    --shadow-pop: 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 16px 40px rgba(0, 0, 0, 0.6);
+    --shadow-thumb: 0 0 0 0.5px rgba(255, 255, 255, 0.06), 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fill: var(--fill);
+  --color-fill-strong: var(--fill-strong);
+  --color-label: var(--label);
+  --color-label-2: var(--label-2);
+  --color-label-3: var(--label-3);
+  --color-separator: var(--separator);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-tint: var(--tint);
+  --color-call: var(--call);
+  --color-on-call: var(--on-call);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+  --shadow-thumb: var(--shadow-thumb);
+}
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "IBM Plex Sans Arabic",
+    system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale: tracking tightens as size grows, leading loosens as size shrinks */
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-caption--letter-spacing: 0.005em;
+  --text-footnote: 0.8125rem;
+  --text-footnote--line-height: 1.125rem;
+  --text-footnote--letter-spacing: -0.003em;
+  --text-subhead: 0.9375rem;
+  --text-subhead--line-height: 1.375rem;
+  --text-subhead--letter-spacing: -0.01em;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.5rem;
+  --text-body--letter-spacing: -0.015em;
+  --text-title3: 1.25rem;
+  --text-title3--line-height: 1.625rem;
+  --text-title3--letter-spacing: -0.015em;
+  --text-title2: 1.5rem;
+  --text-title2--line-height: 1.875rem;
+  --text-title2--letter-spacing: -0.018em;
+  --text-title1: 1.75rem;
+  --text-title1--line-height: 2.125rem;
+  --text-title1--letter-spacing: -0.02em;
+  --text-large: 2.125rem;
+  --text-large--line-height: 2.5rem;
+  --text-large--letter-spacing: -0.022em;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-pop-in: pop-in 180ms var(--ease-out-quint);
+  --animate-fade-in: fade-in 200ms ease-out;
+  --animate-rise-in: rise-in 320ms var(--ease-out-quint);
+
+  @keyframes pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.97) translateY(-4px);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: var(--canvas);
+    color: var(--label);
+    font-family: var(--font-sans);
+    font-size: var(--text-subhead);
+    line-height: var(--text-subhead--line-height);
+    letter-spacing: var(--text-subhead--letter-spacing);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-optical-sizing: auto;
+  }
+  ::selection {
+    background-color: color-mix(in srgb, var(--tint) 28%, transparent);
+  }
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--tint) 55%, transparent);
+    outline-offset: 2px;
+  }
+  button,
+  [role="button"],
+  summary {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+  }
+}
+
+@layer utilities {
+  /* Translucent chrome that content scrolls beneath */
+  .material {
+    background-color: var(--material);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Immediate press feedback on pointer-down */
+  .pressable {
+    transition: transform 120ms ease-out, background-color 150ms ease-out, opacity 150ms ease-out;
+  }
+  .pressable:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+/* Arabic typography: no Latin tracking, Arabic face ahead of the Latin fallbacks */
+html[dir="rtl"] body {
+  font-family: -apple-system, BlinkMacSystemFont, "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+}
+html[dir="rtl"] * {
+  letter-spacing: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pressable:active:not(:disabled) {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .material {
+    background-color: var(--canvas);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --separator: rgba(0, 0, 0, 0.35);
+    --label-2: #3a3a3c;
+    --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --separator: rgba(255, 255, 255, 0.4);
+      --label-2: #c7c7cc;
+      --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.4);
+    }
+  }
+}

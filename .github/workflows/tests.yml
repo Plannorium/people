@@ -1,0 +1,58 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  typecheck:
+    name: Type check
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--max-old-space-size=4096"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+
+  integration:
+    name: Web auth suites
+    runs-on: ubuntu-latest
+    # Runs in process against the real authOptions — no HTTP server needed,
+    # because what is under test is the sign-in DECISION: the credentials
+    # provider's authorize() and the signIn callback that guards the OAuth
+    # providers. It does need a real database, since the gate reads the user's
+    # enrolment and consumes single-use grants.
+    services:
+      mongo:
+        image: mongo:7
+        ports: ['27017:27017']
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ping:1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      MONGODB_URI: mongodb://localhost:27017/people_ci
+      # Test-only secrets. Never reuse a real one: workflow files are readable
+      # by anyone who can read the repo, and by every fork.
+      NEXTAUTH_SECRET: ci-test-nextauth-secret-not-used-anywhere-else
+      JWT_SECRET: ci-test-jwt-secret-not-used-anywhere-else
+      FIELD_ENCRYPTION_KEY: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+      CI: 'true'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run test:ci

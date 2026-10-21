@@ -1,0 +1,45 @@
+name: Vercel Preview Deployment
+
+on:
+  # Pushing to `staging` is what publishes staging at a fixed address.
+  # Only trigger preview deployment on pushes to individual preview branches.
+  push:
+    branches:
+      - staging
+  workflow_dispatch:
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+# One preview per pull request or branch. Pushing twice in quick succession cancels the
+# older run rather than racing it, so the newest commit is what ends up
+# deployed.
+concurrency:
+  group: preview-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No --prod, so Vercel builds against the Preview environment: the
+      # staging database/environment, never production's.
+      - name: Deploy to Vercel Preview (Remote Build)
+        id: deploy
+        run: |
+          DEPLOY_URL=$(npx vercel --yes --token=${{ secrets.VERCEL_TOKEN }})
+          echo "url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
+          echo "Deployed to $DEPLOY_URL"
+
+      # A preview deployment gets a one-off hostname nobody can configure an app
+      # against. Staging is only useful at a fixed address, so the `staging`
+      # branch's deployment is aliased onto one.
+      - name: Alias to the staging domain
+        if: github.ref == 'refs/heads/staging'
+        run: |
+          npx vercel alias set "${{ steps.deploy.outputs.url }}" \
+            staging-people.plannorium.com \
+            --scope="$VERCEL_ORG_ID" --token=${{ secrets.VERCEL_TOKEN }}
