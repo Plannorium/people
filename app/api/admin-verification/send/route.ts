@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { requireSession, apiError } from "@/lib/access";
+import { requireSession, apiError, isTrustedOrigin } from "@/lib/access";
 import { configuredAdminRole } from "@/lib/admin-policy";
 import { sendAdminCode, AdminCodeError } from "@/lib/admin-verification";
 
 export async function POST(request: NextRequest) {
-  const expectedOrigin = new URL(process.env.NEXTAUTH_URL || request.url).origin;
-  if (request.headers.get("origin") !== expectedOrigin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!isTrustedOrigin(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   try {
     const session = await requireSession();
     if (configuredAdminRole(session.user.email) === "employee") return NextResponse.json({ error: "Forbidden" }, { status: 403 });

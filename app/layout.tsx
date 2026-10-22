@@ -23,9 +23,14 @@ export const metadata: Metadata = {
     index: false,
     follow: false,
   },
+  // The version tag makes browsers fetch the new mark instead of a cached older icon at the same URL.
+  // Bump it whenever the icon files change.
   icons: {
-    icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/favicon-people.png", type: "image/png", sizes: "512x512" }],
-    apple: "/favicon-apple.png",
+    icon: [
+      { url: "/favicon.ico?v=keystone-2", sizes: "any" },
+      { url: "/favicon-people.png?v=keystone-2", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/favicon-apple.png?v=keystone-2",
   },
 };
 

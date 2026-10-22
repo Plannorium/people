@@ -44,8 +44,9 @@ export async function sendEmailCode(purpose: VerificationPurpose, email: string,
   try {
     await Challenge.findOneAndUpdate(
       { _id: id, nextSendAt: { $lte: now }, attempts: { $lt: MAX_CODE_ATTEMPTS } },
-      { $set: { nonceHash, codeHash: hash, nextSendAt: new Date(now.getTime() + SEND_COOLDOWN_MS) },
-        $setOnInsert: { expiresAt: new Date(now.getTime() + CODE_TTL_MS), attempts: 0 } },
+      // Each delivered code gets the full TTL; the attempt count carries over, so resending never adds guesses
+      { $set: { nonceHash, codeHash: hash, nextSendAt: new Date(now.getTime() + SEND_COOLDOWN_MS), expiresAt: new Date(now.getTime() + CODE_TTL_MS) },
+        $setOnInsert: { attempts: 0 } },
       { upsert: true, new: true },
     );
   } catch (error) {

@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { requireSession, apiError } from "@/lib/access";
+import { requireSession, apiError, isTrustedOrigin } from "@/lib/access";
 import { normalizeEmail } from "@/lib/admin-policy";
 import { sendSubmissionCode } from "@/lib/submission-verification";
 import { EmailCodeError } from "@/lib/email-verification";
 
 export async function POST(request: NextRequest) {
-  const expectedOrigin = new URL(process.env.NEXTAUTH_URL || request.url).origin;
-  if (request.headers.get("origin") !== expectedOrigin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!isTrustedOrigin(request)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   try {
     const session = await requireSession();
     const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });

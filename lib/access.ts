@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth";
@@ -94,6 +94,23 @@ export async function requirePageSession(allowedRoles?: UserRole[]): Promise<Aut
     redirect(role === "hr_admin" || role === "owner" ? "/admin" : "/me");
   }
   return session as unknown as AuthenticatedSession;
+}
+
+/**
+ * Cross-site request check for sensitive POSTs: the browser's Origin must be this deployment
+ * (the host the request actually reached, or NEXTAUTH_URL). A page on another site can't
+ * fake either, but preview URLs and local dev keep working even if NEXTAUTH_URL points elsewhere.
+ */
+export function isTrustedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get("origin");
+  if (!origin) return false;
+  const allowed = new Set<string>([req.nextUrl.origin]);
+  try {
+    if (process.env.NEXTAUTH_URL) allowed.add(new URL(process.env.NEXTAUTH_URL).origin);
+  } catch {
+    // Malformed NEXTAUTH_URL: fall back to the request's own origin only
+  }
+  return allowed.has(origin);
 }
 
 /**

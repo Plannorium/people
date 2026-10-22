@@ -205,6 +205,9 @@ export const authOptions: NextAuthOptions = {
         token.adminChallengeId = randomUUID();
         token.adminVerifiedAt = undefined;
       }
+      if (!token.adminChallengeId) {
+        token.adminChallengeId = randomUUID();
+      }
 
       // Lookup role and employee record ID from DB
       if (token.email) {

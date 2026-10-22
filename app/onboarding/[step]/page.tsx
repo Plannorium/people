@@ -138,6 +138,7 @@ export default async function OnboardingStepPage({
       // Only the fields the summary shows; encrypted values never leave the server
       return (
         <ReviewStep
+          workEmail={employee.workEmail}
           missing={missingSteps(getStepCompletion(employee))}
           employeeRecord={{
             personal: {

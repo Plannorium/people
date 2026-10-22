@@ -1,16 +1,18 @@
 "use client";
 
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { reviewSchema, ReviewFormData } from "@/lib/validation/review";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
-import { DetailList, DetailItem, NextOfKinBadge } from "@/components/ui/Layout";
+import { Input } from "@/components/ui/Input";
+import { DetailList, DetailItem, NextOfKinBadge, Banner } from "@/components/ui/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { CheckCircle2, FileCheck } from "lucide-react";
+import { CheckCircle2, FileCheck, ShieldCheck } from "lucide-react";
 import { StepShell, StepFooter } from "./StepLayout";
 
 interface ReviewContact {
@@ -50,6 +52,7 @@ interface ReviewStepProps {
   employeeRecord: ReviewRecord;
   /** Required sections that still need finishing; submit stays disabled until empty */
   missing?: string[];
+  workEmail?: string;
 }
 
 function ReviewSection({ title, href, children }: { title: string; href: string; children: ReactNode }) {
@@ -67,24 +70,85 @@ function ReviewSection({ title, href, children }: { title: string; href: string;
   );
 }
 
-export const ReviewStep: React.FC<ReviewStepProps> = ({ employeeRecord, missing = [] }) => {
+export const ReviewStep: React.FC<ReviewStepProps> = ({ employeeRecord, missing = [], workEmail }) => {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { data: session } = useSession();
+  const { t, language } = useLanguage();
+  const ar = language === "ar";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
+  // Email submission code verification state
+  const [code, setCode] = useState("");
+  const [codeSending, setCodeSending] = useState(false);
+  const [codeSent, setCodeSent] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
+  const [cooldown, setCooldown] = useState(0);
+
+  const displayEmail = workEmail || session?.user?.email;
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const timer = setInterval(() => {
+      setCooldown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [cooldown]);
+
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<ReviewFormData>({
     resolver: zodResolver(reviewSchema),
     defaultValues: {
       accuracyConfirmed: false,
       privacyAcknowledged: false,
+      verificationCode: "",
     },
   });
+
+  const accuracyConfirmed = watch("accuracyConfirmed");
+  const privacyAcknowledged = watch("privacyAcknowledged");
+
+  const handleSendCode = async () => {
+    setCodeSending(true);
+    setSendError(null);
+    try {
+      const res = await fetch("/api/employee/submission-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: "{}",
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (res.status === 429) {
+          throw new Error(
+            ar
+              ? "يرجى الانتظار دقيقة قبل طلب رمز آخر."
+              : "Please wait a minute before requesting another code."
+          );
+        }
+        if (res.status === 503) {
+          throw new Error(
+            ar
+              ? "خدمة البريد غير متوفرة حاليًا. تواصل مع الدعم."
+              : "Email service is temporarily unavailable. Please contact support."
+          );
+        }
+        throw new Error(data.error || "Could not send the confirmation email.");
+      }
+      setCodeSent(true);
+      setCooldown(60);
+    } catch (err) {
+      setSendError((err as Error).message || "Could not send code.");
+    } finally {
+      setCodeSending(false);
+    }
+  };
 
   const onSubmit = async (data: ReviewFormData) => {
     setIsSubmitting(true);
@@ -228,10 +292,78 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ employeeRecord, missing 
           {...register("privacyAcknowledged")}
         />
 
+        <div className="brand-edge rounded-[24px] bg-surface-2 p-5 sm:p-6 shadow-card space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-tint/10 text-tint">
+              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-subhead font-semibold text-label">
+                {t("review.verificationTitle")}
+              </h3>
+              <p className="mt-1 text-footnote text-label-2">
+                {t("review.verificationDescription")}
+              </p>
+              {displayEmail && (
+                <p dir="ltr" className="mt-2 text-footnote font-mono text-label">
+                  {displayEmail}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {sendError && (
+            <Banner tone="danger">{sendError}</Banner>
+          )}
+
+          {codeSent && (
+            <Banner tone="success">{t("review.codeSent")}</Banner>
+          )}
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <div className="flex-1">
+              <Input
+                label={t("review.codeLabel")}
+                placeholder={t("review.codePlaceholder")}
+                ltr
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={6}
+                value={code}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/\D/g, "").slice(0, 6);
+                  setCode(val);
+                  setValue("verificationCode", val, { shouldValidate: true });
+                }}
+                error={errors.verificationCode?.message}
+                disabled={isSubmitting}
+                required
+              />
+            </div>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleSendCode}
+              disabled={codeSending || cooldown > 0 || isSubmitting}
+              isLoading={codeSending}
+              className="shrink-0"
+            >
+              {cooldown > 0
+                ? `${t("review.resendCode")} (${cooldown}s)`
+                : codeSent
+                ? t("review.resendCode")
+                : t("review.sendCode")}
+            </Button>
+          </div>
+          <p className="text-caption text-label-2">
+            {t("review.codeHelp")}
+          </p>
+        </div>
+
         <StepFooter
           onBack={() => router.push("/onboarding/employment")}
           isSubmitting={isSubmitting}
-          nextDisabled={missing.length > 0}
+          nextDisabled={missing.length > 0 || !accuracyConfirmed || !privacyAcknowledged || code.length !== 6}
           nextLabel={t("review.submitRecord")}
           nextIcon={<FileCheck aria-hidden="true" className="h-4 w-4" />}
         />
