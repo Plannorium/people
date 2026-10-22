@@ -1,71 +1,36 @@
 @import "tailwindcss";
 
-/*
- * Plannorium People — design tokens
- * Modelled on Apple's system colours: grouped backgrounds, label hierarchy, hairline
- * separators. Light and dark follow the device setting.
- */
+/* Plannorium People: a focused, dark workspace. */
 :root {
-  color-scheme: light dark;
-
-  --canvas: #f5f5f7;            /* systemGroupedBackground */
-  --surface: #ffffff;           /* secondarySystemGroupedBackground */
-  --surface-2: #f5f5f7;         /* nested blocks inside a surface */
-  --fill: rgba(118, 118, 128, 0.12);
-  --fill-strong: rgba(118, 118, 128, 0.2);
-
-  --label: #1d1d1f;
-  --label-2: #6e6e73;
-  --label-3: #a1a1a6;
-  --separator: rgba(60, 60, 67, 0.13);
-
-  --primary: #1d1d1f;
-  --on-primary: #ffffff;
-  --tint: #047857;              /* Plannorium green, darkened for 5.5:1 on white */
-  --call: #248a3d;
-  --on-call: #ffffff;
-
-  --success: #248a3d;
-  --warning: #b25000;
-  --danger: #d70015;
-
-  --material: rgba(245, 245, 247, 0.78);
-  --shadow-card: 0 0 0 0.5px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-pop: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.12);
-  --shadow-thumb: 0 0 0 0.5px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas: #000000;
-    --surface: #1c1c1e;
-    --surface-2: #2c2c2e;
-    --fill: rgba(118, 118, 128, 0.24);
-    --fill-strong: rgba(118, 118, 128, 0.34);
-
-    --label: #f5f5f7;
-    --label-2: #98989d;
-    --label-3: #636366;
-    --separator: rgba(255, 255, 255, 0.1);
-
-    --primary: #f5f5f7;
-    --on-primary: #000000;
-    --tint: #34d399;
-    --call: #30d158;
-    --on-call: #00230d;
-
-    --success: #30d158;
-    --warning: #ff9f0a;
-    --danger: #ff453a;
-
-    --material: rgba(22, 22, 23, 0.72);
-    --shadow-card: 0 0 0 0.5px rgba(255, 255, 255, 0.08);
-    --shadow-pop: 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 16px 40px rgba(0, 0, 0, 0.6);
-    --shadow-thumb: 0 0 0 0.5px rgba(255, 255, 255, 0.06), 0 2px 6px rgba(0, 0, 0, 0.4);
-  }
+  color-scheme: dark;
+  --canvas: #0A0A0B;
+  --surface: #141415;
+  --surface-2: #1C1C1E;
+  --fill: rgba(255,255,255,.06);
+  --fill-strong: rgba(255,255,255,.10);
+  --label: #E5E7EB;
+  --label-2: #9CA3AF;
+  --label-3: #6B7280;
+  --separator: rgba(255,255,255,.10);
+  --brand-light: #34D399;
+  --brand-dark: #059669;
+  --primary: #10B981;
+  --on-primary: #0A0A0B;
+  --tint: #10B981;
+  --call: #10B981;
+  --on-call: #0A0A0B;
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --material: rgba(10,10,11,.8);
+  --shadow-card: 0 0 0 1px rgba(255,255,255,.10);
+  --shadow-pop: 0 25px 50px -12px rgba(0,0,0,.5);
+  --shadow-thumb: 0 0 0 1px rgba(255,255,255,.10);
 }
 
 @theme inline {
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
@@ -90,8 +55,9 @@
 }
 
 @theme {
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "IBM Plex Sans Arabic",
+  --font-sans: "Inter", "IBM Plex Sans Arabic",
     system-ui, sans-serif;
+  --font-display: "Sora", "IBM Plex Sans Arabic", sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Type scale: tracking tightens as size grows, leading loosens as size shrinks */
@@ -206,7 +172,7 @@
 
 /* Arabic typography: no Latin tracking, Arabic face ahead of the Latin fallbacks */
 html[dir="rtl"] body {
-  font-family: -apple-system, BlinkMacSystemFont, "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
+  font-family: "IBM Plex Sans Arabic", "Inter", system-ui, sans-serif;
 }
 html[dir="rtl"] * {
   letter-spacing: 0 !important;
@@ -236,15 +202,40 @@ html[dir="rtl"] * {
 
 @media (prefers-contrast: more) {
   :root {
-    --separator: rgba(0, 0, 0, 0.35);
-    --label-2: #3a3a3c;
-    --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.35);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --separator: rgba(255, 255, 255, 0.4);
-      --label-2: #c7c7cc;
-      --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.4);
-    }
+    --separator: rgba(255,255,255,.4);
+    --label-2: #C7C7CC;
+    --shadow-card: 0 0 0 1px rgba(255,255,255,.4);
   }
 }
+
+@layer base {
+  h1, h2 { font-family: "Sora", "IBM Plex Sans Arabic", sans-serif; }
+  html[dir="rtl"] h1, html[dir="rtl"] h2 { font-family: "IBM Plex Sans Arabic", sans-serif; }
+  input:read-only { background: var(--surface-2); color: var(--label-2); }
+}
+
+/* The short emerald edge echoes the vertical keystone without enclosing every surface. */
+.brand-edge { position: relative; }
+.brand-edge::before {
+  content: ""; position: absolute; inset-inline-start: 0; top: 28px;
+  width: 3px; height: 32px; border-radius: 4px; background: var(--tint);
+  opacity: 0; transition: opacity 180ms ease-out;
+}
+.brand-edge:hover::before, .brand-edge:focus-within::before { opacity: 1; }
+.step-fields { border-radius: 28px; background: var(--surface); padding: 28px; box-shadow: var(--shadow-card); }
+@media (max-width: 639px) { .step-fields { padding: 20px; border-radius: 24px; } }
+
+/* Explicit display avoids Button's inline-flex utility overriding mobile hiding. */
+.step-save-later { display: none; }
+@media (min-width: 640px) { .step-save-later { display: inline-flex; } }
+
+.brand-arrival svg > g > rect { transform-box: fill-box; transform-origin: bottom; animation: keystone-arrive 420ms var(--ease-out-quint) both; }
+.brand-arrival svg > g > rect:nth-child(2) { animation-delay: 80ms; }
+.brand-arrival svg > g > rect:nth-child(3) { animation-delay: 160ms; }
+@keyframes keystone-arrive { from { opacity: 0; transform: scaleY(.65); } to { opacity: 1; transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .brand-arrival svg > g > rect { animation: none; }
+}
+
+.contact-add-panel { border: 1px dashed color-mix(in srgb, var(--tint) 40%, transparent); }
+.identity-card .brand-edge { border-radius: 0; background: transparent; padding: 24px 0 0; box-shadow: none; border-top: 1px solid var(--separator); }
