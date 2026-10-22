@@ -93,7 +93,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
     >
       <div className="flex items-stretch gap-2" dir="ltr">
         {/* Shows only the dial code; the full country name lives in the native picker */}
-        <div className="relative w-26 shrink-0">
+        <div className="relative w-28 shrink-0 sm:w-[200px]">
           <select
             value={country}
             aria-label="Country calling code"
@@ -112,7 +112,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
           </select>
           <div
             aria-hidden="true"
-            className="pointer-events-none flex h-full min-h-11 items-center justify-between rounded-[10px] bg-fill ps-3 pe-2 text-subhead tabular-nums text-label transition-[box-shadow] peer-focus-visible:shadow-[inset_0_0_0_1px_var(--tint)] peer-focus-visible:ring-4 peer-focus-visible:ring-tint/15"
+            className="pointer-events-none flex h-full min-h-[46px] items-center justify-between rounded-xl border border-white/12 bg-canvas ps-3 pe-2 text-subhead tabular-nums text-label transition-[box-shadow] peer-focus-visible:shadow-[inset_0_0_0_1px_var(--tint)] peer-focus-visible:ring-3 peer-focus-visible:ring-tint/15"
           >
             <span>
               {country} +{getCountryCallingCode(country)}

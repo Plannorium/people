@@ -11,21 +11,21 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const SIZE_STYLES: Record<ButtonSize, string> = {
-  sm: "h-8 px-3.5 text-footnote gap-1.5",
-  md: "h-11 px-5 text-subhead gap-2",
-  lg: "h-[50px] px-6 text-body gap-2",
+  sm: "min-h-11 px-4 text-footnote gap-1.5",
+  md: "min-h-12 px-7 text-subhead gap-2",
+  lg: "min-h-[52px] px-7 text-subhead gap-2",
 };
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-on-primary hover:opacity-90",
-  secondary: "bg-fill text-label hover:bg-fill-strong",
+  primary: "bg-primary text-on-primary hover:bg-brand-light active:bg-brand-dark [&_[data-brand-mark]_rect]:fill-current",
+  secondary: "border border-white/15 bg-transparent text-label hover:bg-fill-strong",
   danger: "bg-danger/10 text-danger hover:bg-danger/15",
-  ghost: "text-tint hover:bg-fill",
+  ghost: "text-label-2 hover:bg-fill hover:text-label",
 };
 
 /** Button styling, also used to style links that act as buttons. */
 export function buttonClasses(variant: ButtonVariant = "primary", size: ButtonSize = "md"): string {
-  return `pressable inline-flex select-none items-center justify-center whitespace-nowrap rounded-full font-semibold disabled:cursor-not-allowed disabled:opacity-40 ${SIZE_STYLES[size]} ${VARIANT_STYLES[variant]}`;
+  return `pressable inline-flex select-none items-center justify-center whitespace-nowrap rounded-full font-bold disabled:cursor-not-allowed disabled:opacity-40 ${SIZE_STYLES[size]} ${VARIANT_STYLES[variant]}`;
 }
 
 export const Spinner: React.FC<{ className?: string }> = ({ className = "h-4 w-4" }) => (

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import PlannoriumWordmark from "@/components/brand/PlannoriumWordmark";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
@@ -43,7 +43,7 @@ function AccountMenu({ email, roleLabel, signOutLabel }: { email: string; roleLa
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Account"
-        className={`pressable flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-[#a5a5aa] to-[#86868b] text-caption font-semibold text-white dark:from-[#6e6e73] dark:to-[#48484a] ${
+        className={`pressable flex h-11 w-11 items-center justify-center rounded-full bg-tint/15 text-footnote font-semibold text-tint ${
           open ? "ring-4 ring-tint/20" : ""
         }`}
       >
@@ -109,28 +109,18 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`material sticky top-0 z-40 w-full transition-shadow duration-200 ${
+      className={`material sticky top-0 border-b border-separator z-40 w-full transition-shadow duration-200 ${
         scrolled || mobileMenuOpen ? "shadow-[0_0.5px_0_var(--separator)]" : ""
       }`}
     >
       {/* Three columns so the nav sits at the true centre, whatever the width of either side */}
-      <div className="mx-auto grid h-14 max-w-6xl grid-cols-[1fr_auto] items-center gap-4 px-4 sm:px-6 md:grid-cols-[1fr_auto_1fr] lg:px-8">
+      <div className="mx-auto grid min-h-[68px] max-w-[1200px] grid-cols-[1fr_auto] items-center gap-4 px-4 sm:px-6 md:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
-          className="pressable flex items-center gap-2 justify-self-start rounded-lg"
+          className="pressable flex min-h-11 items-center gap-2 justify-self-start rounded-lg"
           aria-label="Plannorium People home"
         >
-          <Image
-            src="/logo-mark.png"
-            alt=""
-            width={22}
-            height={22}
-            className="h-[22px] w-[22px] object-contain"
-            priority
-          />
-          <span className="text-body font-semibold leading-none tracking-tight text-label">
-            Plannorium <span className="font-normal text-label-2">People</span>
-          </span>
+          <PlannoriumWordmark suffix="People" className="font-display text-sm sm:text-base font-bold tracking-tight" />
         </Link>
 
         {session ? (
@@ -140,7 +130,7 @@ export const Header: React.FC = () => {
                 key={link.href}
                 href={link.href}
                 aria-current={link.isActive ? "page" : undefined}
-                className={`pressable flex h-8 items-center rounded-full px-3.5 text-subhead transition-colors ${
+                className={`pressable flex min-h-11 items-center rounded-xl px-3.5 text-subhead transition-colors ${
                   link.isActive ? "bg-fill font-semibold text-label" : "text-label-2 hover:text-label"
                 }`}
               >
@@ -165,7 +155,7 @@ export const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="pressable -me-1.5 flex h-8 w-8 items-center justify-center rounded-full text-label hover:bg-fill md:hidden"
+                className="pressable -me-1.5 flex h-11 w-11 items-center justify-center rounded-full text-label hover:bg-fill md:hidden"
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
