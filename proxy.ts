@@ -1,3 +1,4 @@
+import { configuredAdminRole, effectiveAdminRole } from "./lib/admin-policy";
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
@@ -11,8 +12,7 @@ export async function proxy(req: NextRequest) {
     pathname.startsWith("/api/cron/") || // authenticated by CRON_SECRET inside the route
     pathname === "/sign-in" ||
     pathname === "/robots.txt" ||
-    pathname === "/logo.png" ||
-    pathname === "/logo-mark.png" ||
+    pathname === "/sitemap.xml" ||
     pathname.startsWith("/favicon")
   ) {
     return applySecurityHeaders(NextResponse.next());
@@ -38,10 +38,10 @@ export async function proxy(req: NextRequest) {
 
   // Admin route protection: must be hr_admin or owner
   if (pathname.startsWith("/admin")) {
-    const role = (token.role as string) || "employee";
+    const role = effectiveAdminRole(token.email || "", token.adminChallengeId ? token.adminVerifiedAt : undefined);
     if (role !== "hr_admin" && role !== "owner") {
       // Forbidden: redirect employee to /me
-      return applySecurityHeaders(NextResponse.redirect(new URL("/me", req.url)));
+      return applySecurityHeaders(NextResponse.redirect(new URL(configuredAdminRole(token.email || "") !== "employee" ? "/verify-admin" : "/me", req.url)));
     }
 
     // Owner only route protection: /admin/settings

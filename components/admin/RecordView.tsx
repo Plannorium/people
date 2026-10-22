@@ -482,8 +482,8 @@ export const RecordView: React.FC<RecordViewProps> = ({ employee, currentUserRol
                   label="Access role"
                   value={employmentForm.role}
                   onChange={set("role")}
-                  disabled={!isOwner}
-                  hint={isOwner ? undefined : "Only owners can change roles"}
+                  disabled
+                  hint="Admin access is restricted to the account owner’s configured email list."
                 >
                   <option value="employee">Employee</option>
                   <option value="hr_admin">HR Admin</option>

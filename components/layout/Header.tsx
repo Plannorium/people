@@ -103,7 +103,7 @@ export const Header: React.FC = () => {
   // Global destinations only; admin sections live in the admin tab bar, so nothing is listed twice
   const navLinks = [
     { href: "/me", label: t("nav.myProfile"), show: true, isActive: pathname === "/me" || pathname.startsWith("/onboarding") },
-    { href: "/admin", label: t("nav.admin"), show: isHrOrOwner, isActive: pathname.startsWith("/admin") },
+    { href: session?.user.adminVerificationRequired ? "/verify-admin" : "/admin", label: t("nav.admin"), show: isHrOrOwner || !!session?.user.adminVerificationRequired, isActive: pathname.startsWith("/admin") },
     { href: "/privacy", label: t("nav.privacyNotice"), show: true, isActive: pathname === "/privacy" },
   ].filter((l) => l.show);
 

@@ -9,21 +9,11 @@ import { Banner } from "@/components/ui/Layout";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Lock } from "lucide-react";
 
-const DEV_ROLES = [
-  { value: "employee", label: "Employee" },
-  { value: "hr_admin", label: "HR Admin" },
-  { value: "owner", label: "Owner" },
-] as const;
-
 function SignInContent() {
   const searchParams = useSearchParams();
   const { t } = useLanguage();
   const { status } = useSession();
   const [isLoading, setIsLoading] = useState<string | null>(null);
-
-  // Dev mode credentials state
-  const [devEmail, setDevEmail] = useState("alex@plannorium.com");
-  const [devRole, setDevRole] = useState<string>("employee");
 
   const errorParam = searchParams.get("error");
   const callbackUrl = searchParams.get("callbackUrl") || "/";
@@ -109,58 +99,7 @@ function SignInContent() {
           </p>
         </div>
 
-        {/* Local `next dev` only; the provider itself is disabled in every other build */}
-        {process.env.NODE_ENV === "development" && (
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              start("dev-login", { email: devEmail, role: devRole });
-            }}
-            className="mt-4 space-y-3 rounded-[24px] border border-dashed border-separator bg-surface/60 p-5"
-          >
-            <div className="flex items-center justify-between">
-              <p className="text-footnote font-semibold text-label">Developer sign-in</p>
-              <span className="rounded-full bg-warning/12 px-2 py-0.5 text-caption font-semibold text-warning">
-                Local only
-              </span>
-            </div>
-            <input
-              type="email"
-              value={devEmail}
-              onChange={(e) => setDevEmail(e.target.value)}
-              placeholder="name@plannorium.com"
-              aria-label="Work email"
-              dir="ltr"
-              className="h-10 w-full rounded-[10px] bg-fill px-3 text-subhead text-label outline-none placeholder:text-label-3 focus:ring-4 focus:ring-tint/15"
-            />
-            <div role="radiogroup" aria-label="Role" className="grid grid-cols-3 gap-0.5 rounded-[9px] bg-fill p-0.5">
-              {DEV_ROLES.map((r) => (
-                <button
-                  key={r.value}
-                  type="button"
-                  role="radio"
-                  aria-checked={devRole === r.value}
-                  onClick={() => setDevRole(r.value)}
-                  className={`min-h-11 rounded-[7px] text-footnote font-medium transition-[background-color,color,box-shadow] ${
-                    devRole === r.value ? "bg-surface text-label shadow-thumb" : "text-label-2 hover:text-label"
-                  }`}
-                >
-                  {r.label}
-                </button>
-              ))}
-            </div>
-            <Button
-              type="submit"
-              variant="secondary"
-              size="md"
-              isLoading={isLoading === "dev-login"}
-              disabled={!!isLoading}
-              className="w-full"
-            >
-              Sign in as {DEV_ROLES.find((r) => r.value === devRole)?.label}
-            </Button>
-          </form>
-        )}
+
       </div>
     </div>
   );
