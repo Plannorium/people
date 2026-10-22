@@ -1,3 +1,7 @@
+import { getToken } from "next-auth/jwt";
+import { normalizeEmail } from "@/lib/admin-policy";
+import { verifySubmissionCode } from "@/lib/submission-verification";
+import { EmailCodeError } from "@/lib/email-verification";
 import { NextRequest, NextResponse } from "next/server";
 import { requireSession, apiError } from "@/lib/access";
 import { connectDB } from "@/lib/db";
@@ -7,6 +11,8 @@ import { reviewSchema } from "@/lib/validation/review";
 import { getStepCompletion, missingSteps, STEP_LABELS } from "@/lib/onboarding";
 
 export async function POST(req: NextRequest) {
+  const expectedOrigin = new URL(process.env.NEXTAUTH_URL || req.url).origin;
+  if (req.headers.get("origin") !== expectedOrigin) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   try {
     const session = await requireSession();
     const body = await req.json();
@@ -30,6 +36,15 @@ export async function POST(req: NextRequest) {
         },
         { status: 400 }
       );
+    }
+
+    // Confirm this specific submission, even for admins already verified for admin access.
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    if (!token?.adminChallengeId || normalizeEmail(token.email || "") !== normalizeEmail(session.user.email)) {
+      return NextResponse.json({ error: "Please sign in again before confirming your submission." }, { status: 401 });
+    }
+    if (!await verifySubmissionCode(session.user.email, token.adminChallengeId, body.verificationCode)) {
+      return NextResponse.json({ error: "Enter a valid email confirmation code before submitting.", code: "EmailVerificationRequired" }, { status: 403 });
     }
 
     const now = new Date();
@@ -58,6 +73,7 @@ export async function POST(req: NextRequest) {
       lastReviewedAt: now,
     });
   } catch (err) {
+    if (err instanceof EmailCodeError) return NextResponse.json({ error: err.message }, { status: err.status });
     return apiError(err, "Failed to submit profile.", "Employee Submit Error");
   }
 }
