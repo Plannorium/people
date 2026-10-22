@@ -83,7 +83,7 @@ export default async function MyProfilePage() {
       )}
 
       {/* Identity */}
-      <section className="flex flex-col gap-5 rounded-[22px] bg-surface p-6 shadow-card sm:flex-row sm:items-center sm:p-8">
+      <section className="flex flex-col gap-5 rounded-[28px] bg-surface p-6 shadow-card sm:flex-row sm:items-center sm:p-8">
         <Avatar name={name} size="lg" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -180,20 +180,20 @@ export default async function MyProfilePage() {
                 ? `${loc.workArrangement}${loc.officeLocation ? ` · ${loc.officeLocation}` : ""}`
                 : undefined}
             </DetailItem>
-            <DetailItem label="Time zone">{loc?.timeZone?.replace(/_/g, " ")}</DetailItem>
+            <DetailItem label="Time zone" ltr>{loc?.timeZone?.replace(/_/g, " ")}</DetailItem>
           </DetailList>
         </SectionCard>
 
         <SectionCard title="Identification" icon={<IdCard />} action={<EditLink href="/onboarding/identification" />}>
           <DetailList>
             <DetailItem label="Document">{idDoc?.documentType}</DetailItem>
-            <DetailItem label="Number">
+            <DetailItem label="Number" ltr>
               {idDoc?.documentLast4 ? (
                 <MaskedValue maskedText={`•••• ${idDoc.documentLast4}`} employeeId={employee._id.toString()} />
               ) : undefined}
             </DetailItem>
             <DetailItem label="Issued by">{countryName(idDoc?.issuingCountry)}</DetailItem>
-            <DetailItem label="Expires">
+            <DetailItem label="Expires" ltr>
               {idDoc?.expiryDate ? (
                 <span className={idDays !== null && idDays < 0 ? "text-danger" : idDays !== null && idDays <= 60 ? "text-warning" : ""}>
                   {formatDate(idDoc.expiryDate)}
@@ -225,7 +225,7 @@ export default async function MyProfilePage() {
             <DetailItem label="Job title">{employment?.jobTitle}</DetailItem>
             <DetailItem label="Department">{employment?.department}</DetailItem>
             <DetailItem label="Line manager">{employment?.lineManager}</DetailItem>
-            <DetailItem label="Start date">{formatDate(employment?.startDate)}</DetailItem>
+            <DetailItem label="Start date" ltr>{formatDate(employment?.startDate)}</DetailItem>
             <DetailItem label="Employment type">{employment?.employmentType}</DetailItem>
             <DetailItem label="Employee ID" mono ltr>
               {employment?.employeeId}

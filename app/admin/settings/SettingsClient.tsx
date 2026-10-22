@@ -19,7 +19,7 @@ function SettingsGroup({ title, children }: { title: string; children: React.Rea
   return (
     <section>
       <h2 className="mb-2 px-1 text-footnote font-semibold text-label-2">{title}</h2>
-      <div className="divide-y divide-separator overflow-hidden rounded-[18px] bg-surface shadow-card">{children}</div>
+      <div className="divide-y divide-separator overflow-hidden rounded-[24px] bg-surface shadow-card">{children}</div>
     </section>
   );
 }

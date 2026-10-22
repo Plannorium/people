@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, Suspense } from "react";
-import Image from "next/image";
+import { PlannoriumBrandText, PlannoriumMark } from "@/components/brand/PlannoriumWordmark";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/Button";
@@ -60,13 +60,13 @@ function SignInContent() {
 
   return (
     <div className="flex min-h-[calc(100vh-10rem)] items-center justify-center">
-      <div className="w-full max-w-[400px] animate-rise-in">
-        <div className="rounded-[22px] bg-surface px-6 py-9 shadow-card sm:px-9 sm:py-11">
+      <div className="w-full max-w-[440px] animate-rise-in">
+        <div className="rounded-[40px] bg-surface px-6 py-11 shadow-card sm:px-9">
           <div className="flex flex-col items-center text-center">
             <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface shadow-thumb">
-              <Image src="/logo-mark.png" alt="Plannorium" width={36} height={36} className="h-9 w-9 object-contain" priority />
+              <span className="brand-arrival text-[50px] text-label"><PlannoriumMark /></span>
             </span>
-            <h1 className="mt-6 text-title1 font-bold text-label">{t("signIn.title")}</h1>
+            <h1 className="mt-6 text-[30px] font-bold leading-tight text-label">{t("signIn.title")}</h1>
             <p className="mt-2 text-subhead text-label-2">{t("signIn.subtitle")}</p>
           </div>
 
@@ -85,7 +85,7 @@ function SignInContent() {
               disabled={!!isLoading}
               onClick={() => start("plannorium")}
             >
-              {t("signIn.ctaPlannorium")}
+              <PlannoriumBrandText text={t("signIn.ctaPlannorium")} />
             </Button>
 
             {process.env.NEXT_PUBLIC_ENABLE_GOOGLE_AUTH === "true" && (
@@ -116,7 +116,7 @@ function SignInContent() {
               e.preventDefault();
               start("dev-login", { email: devEmail, role: devRole });
             }}
-            className="mt-4 space-y-3 rounded-[18px] bg-surface p-5 shadow-card"
+            className="mt-4 space-y-3 rounded-[24px] border border-dashed border-separator bg-surface/60 p-5"
           >
             <div className="flex items-center justify-between">
               <p className="text-footnote font-semibold text-label">Developer sign-in</p>
@@ -141,7 +141,7 @@ function SignInContent() {
                   role="radio"
                   aria-checked={devRole === r.value}
                   onClick={() => setDevRole(r.value)}
-                  className={`h-7 rounded-[7px] text-footnote font-medium transition-[background-color,color,box-shadow] ${
+                  className={`min-h-11 rounded-[7px] text-footnote font-medium transition-[background-color,color,box-shadow] ${
                     devRole === r.value ? "bg-surface text-label shadow-thumb" : "text-label-2 hover:text-label"
                   }`}
                 >

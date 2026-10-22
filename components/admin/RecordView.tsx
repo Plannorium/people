@@ -224,7 +224,7 @@ export const RecordView: React.FC<RecordViewProps> = ({ employee, currentUserRol
       </Link>
 
       {/* Identity */}
-      <section className="flex flex-col gap-5 rounded-[22px] bg-surface p-6 shadow-card sm:flex-row sm:items-center sm:p-8">
+      <section className="flex flex-col gap-5 rounded-[28px] bg-surface p-6 shadow-card sm:flex-row sm:items-center sm:p-8">
         <Avatar name={name} size="lg" />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -315,7 +315,7 @@ export const RecordView: React.FC<RecordViewProps> = ({ employee, currentUserRol
                 </div>
                 <a
                   href={`tel:${contact.phoneE164}`}
-                  className="pressable flex h-12 w-full items-center justify-center gap-2 rounded-[12px] bg-call text-subhead font-semibold text-on-call"
+                  className="pressable flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-call text-subhead font-semibold text-on-call"
                   aria-label={`Call ${contact.fullName} on ${contact.phoneE164}`}
                 >
                   <Phone aria-hidden="true" className="h-4 w-4 fill-current" />

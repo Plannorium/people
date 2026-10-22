@@ -160,7 +160,7 @@ export const DirectoryTable: React.FC<DirectoryTableProps> = ({ employees, canDe
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {metrics.map((m) => (
-          <div key={m.label} className="rounded-[18px] bg-surface px-5 py-4 shadow-card">
+          <div key={m.label} className="rounded-[24px] bg-surface px-5 py-4 shadow-card">
             <p className="text-footnote text-label-2">{m.label}</p>
             <p className="mt-1 flex items-baseline gap-2">
               <span className={`text-title1 font-semibold tabular-nums ${m.tone || "text-label"}`}>{m.value}</span>
@@ -179,7 +179,7 @@ export const DirectoryTable: React.FC<DirectoryTableProps> = ({ employees, canDe
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("admin.searchPlaceholder")}
             aria-label="Search directory"
-            className="h-10 w-full rounded-[10px] bg-fill ps-9 pe-3 text-subhead text-label outline-none placeholder:text-label-3 focus:bg-surface focus:shadow-[inset_0_0_0_1px_var(--tint)] focus:ring-4 focus:ring-tint/15"
+            className="min-h-[46px] w-full rounded-xl border border-white/12 bg-canvas ps-9 pe-3 text-subhead text-label outline-none placeholder:text-label-3 focus:bg-canvas focus:shadow-[inset_0_0_0_1px_var(--tint)] focus:ring-4 focus:ring-tint/15"
           />
         </div>
 
@@ -189,7 +189,7 @@ export const DirectoryTable: React.FC<DirectoryTableProps> = ({ employees, canDe
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               aria-label="Filter by status"
-              className="h-10 w-full cursor-pointer appearance-none rounded-[10px] bg-fill ps-3 pe-9 text-subhead text-label outline-none focus:ring-4 focus:ring-tint/15"
+              className="min-h-[46px] w-full cursor-pointer appearance-none rounded-xl border border-white/12 bg-canvas ps-3 pe-9 text-subhead text-label outline-none focus:ring-4 focus:ring-tint/15"
             >
               <option value="active">Current staff</option>
               <option value="all">Everyone</option>
@@ -246,8 +246,8 @@ export const DirectoryTable: React.FC<DirectoryTableProps> = ({ employees, canDe
         </div>
       )}
 
-      <div className="overflow-hidden rounded-[18px] bg-surface shadow-card">
-        <div className="overflow-x-auto">
+      <div className="overflow-hidden rounded-[24px] bg-surface shadow-card">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-start">
             <thead>
               <tr className="border-b border-separator text-footnote text-label-2">

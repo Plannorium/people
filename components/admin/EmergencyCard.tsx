@@ -85,7 +85,7 @@ export const EmergencyCard: React.FC<EmergencyCardProps> = ({ employee }) => {
   const contacts = employee.emergencyContacts || [];
 
   return (
-    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[18px] bg-surface shadow-card">
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-[24px] bg-surface shadow-card">
       {/* Who, and what time it is for them */}
       <header className="flex items-center gap-3 px-4 pt-4 pb-3">
         <Avatar name={fullName} size="sm" />
@@ -95,7 +95,7 @@ export const EmergencyCard: React.FC<EmergencyCardProps> = ({ employee }) => {
           </h2>
           <p className="flex items-center gap-1 truncate text-caption text-label-2">
             <Clock aria-hidden="true" className="h-3 w-3 shrink-0" />
-            {localTime && <span className="font-semibold tabular-nums text-label">{localTime}</span>}
+            {localTime && <span dir="ltr" className="font-semibold tabular-nums text-label">{localTime}</span>}
             <span className="truncate">{timeZone.replace(/_/g, " ")}</span>
           </p>
         </div>
@@ -109,7 +109,7 @@ export const EmergencyCard: React.FC<EmergencyCardProps> = ({ employee }) => {
         {p?.mobileE164 && (
           <a
             href={`tel:${p.mobileE164}`}
-            className="pressable inline-flex h-7 items-center gap-1.5 rounded-full bg-call/12 px-2.5 font-semibold text-call"
+            className="pressable inline-flex min-h-11 items-center gap-1.5 rounded-full bg-call/12 px-2.5 font-semibold text-call"
             aria-label={`Call ${fullName} on ${p.mobileE164}`}
           >
             <Phone aria-hidden="true" className="h-3 w-3" />
@@ -151,7 +151,7 @@ export const EmergencyCard: React.FC<EmergencyCardProps> = ({ employee }) => {
                   {/* One tap to call, full-width target */}
                   <a
                     href={`tel:${contact.phoneE164}`}
-                    className="pressable flex h-10 w-full items-center justify-center gap-2 rounded-full bg-call px-3 text-footnote font-semibold text-on-call"
+                    className="pressable flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-call px-3 text-footnote font-semibold text-on-call"
                     aria-label={`Call ${contact.fullName} on ${contact.phoneE164}`}
                   >
                     <Phone aria-hidden="true" className="h-3.5 w-3.5 fill-current" />

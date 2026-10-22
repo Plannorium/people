@@ -62,7 +62,7 @@ export const AuditTable: React.FC<AuditTableProps> = ({ logs }) => {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by person, actor or field"
             aria-label="Search audit log"
-            className="h-10 w-full rounded-[10px] bg-fill ps-9 pe-3 text-subhead text-label outline-none placeholder:text-label-3 focus:bg-surface focus:shadow-[inset_0_0_0_1px_var(--tint)] focus:ring-4 focus:ring-tint/15"
+            className="min-h-[46px] w-full rounded-xl border border-white/12 bg-canvas ps-9 pe-3 text-subhead text-label outline-none placeholder:text-label-3 focus:bg-canvas focus:shadow-[inset_0_0_0_1px_var(--tint)] focus:ring-4 focus:ring-tint/15"
           />
         </div>
 
@@ -71,7 +71,7 @@ export const AuditTable: React.FC<AuditTableProps> = ({ logs }) => {
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
             aria-label="Filter by action"
-            className="h-10 w-full cursor-pointer appearance-none rounded-[10px] bg-fill ps-3 pe-9 text-subhead text-label outline-none focus:ring-4 focus:ring-tint/15"
+            className="min-h-[46px] w-full cursor-pointer appearance-none rounded-xl border border-white/12 bg-canvas ps-3 pe-9 text-subhead text-label outline-none focus:ring-4 focus:ring-tint/15"
           >
             <option value="all">All actions</option>
             {Object.entries(ACTIONS).map(([value, conf]) => (
@@ -84,8 +84,8 @@ export const AuditTable: React.FC<AuditTableProps> = ({ logs }) => {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-[18px] bg-surface shadow-card">
-        <div className="overflow-x-auto">
+      <div className="overflow-hidden rounded-[24px] bg-surface shadow-card">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[820px] table-fixed border-collapse text-start">
             <colgroup>
               <col className="w-[8.5rem]" />
