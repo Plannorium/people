@@ -31,7 +31,7 @@ const RELATIONSHIPS = [
 
 export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -104,13 +104,13 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
           return (
             <StepGroup
               key={fieldItem.id}
-              title={t("contacts.contactNum", { num: index + 1 })}
+              title={<span className="flex items-center gap-3"><span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-tint text-sm font-bold text-canvas">{index + 1}</span>{index === 0 ? (language === "ar" ? "جهة الاتصال الأساسية" : "Primary contact") : t("contacts.contactNum", { num: index + 1 })}</span>}
               action={
                 fields.length > 1 && (
                   <button
                     type="button"
                     onClick={() => remove(index)}
-                    className="pressable flex h-8 items-center gap-1.5 rounded-full px-3 text-footnote font-medium text-danger hover:bg-danger/10"
+                    className="pressable flex min-h-11 items-center gap-1.5 rounded-full px-3 text-footnote font-medium text-danger hover:bg-danger/10"
                   >
                     <Trash2 aria-hidden="true" className="h-3.5 w-3.5" />
                     <span>{t("contacts.removeContact")}</span>
@@ -118,7 +118,7 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
                 )
               }
             >
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Input
                   label={t("contacts.fullName")}
                   isRequired
@@ -143,7 +143,7 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
                 </Select>
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-5">
                 <Controller
                   name={`emergencyContacts.${index}.phoneE164` as const}
                   control={control}
@@ -172,7 +172,7 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Input
                   label={t("contacts.email")}
                   type="email"
@@ -190,7 +190,7 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Controller
                   name={`emergencyContacts.${index}.countryCode` as const}
                   control={control}
@@ -243,6 +243,9 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
         })}
 
         {fields.length < 3 && (
+          <div className="contact-add-panel rounded-[28px] p-6">
+          <h2 className="text-lg font-semibold text-label">{language === "ar" ? "شخص آخر للتواصل معه" : "Another person to reach"}</h2>
+          <p className="mt-2 mb-4 text-sm leading-relaxed text-label-2">{language === "ar" ? "جهة اتصال إضافية تساعد الموارد البشرية إذا تعذّر الوصول إلى الشخص الأول." : "An additional contact helps HR if the first person is unreachable."}</p>
           <Button
             type="button"
             variant="secondary"
@@ -260,14 +263,15 @@ export const ContactsStep: React.FC<ContactsStepProps> = ({ initialData }) => {
                 isNextOfKin: false,
               })
             }
-            className="w-full sm:w-auto"
+            className="!border-tint/40 !bg-tint/12 !text-brand-light"
           >
             <Plus aria-hidden="true" className="h-4 w-4" />
             <span>{fields.length === 1 ? t("contacts.addContact") : "Add another contact"}</span>
           </Button>
+          </div>
         )}
 
-        <div className="pt-2">
+        <div className="rounded-[20px] border border-separator bg-surface p-5">
           <Checkbox
             isRequired
             label={t("contacts.confirmNotice")}

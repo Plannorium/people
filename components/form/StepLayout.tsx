@@ -12,7 +12,7 @@ export function StepShell({
   subtitle,
   badge,
   error,
-  width = "max-w-2xl",
+  width = "max-w-none",
   children,
 }: {
   title: ReactNode;
@@ -23,14 +23,14 @@ export function StepShell({
   children: ReactNode;
 }) {
   return (
-    <div className={`mx-auto w-full ${width} animate-rise-in`}>
-      <div className="rounded-[22px] bg-surface px-5 py-7 shadow-card sm:px-9 sm:py-9">
+    <div className={`mx-auto min-w-0 w-full ${width} animate-rise-in`}>
+      <div>
         <div className="mb-7">
           <div className="flex items-center gap-2.5">
-            <h1 className="text-title2 font-bold text-label sm:text-title1">{title}</h1>
+            <h1 className="text-title1 font-bold text-label sm:text-large">{title}</h1>
             {badge}
           </div>
-          {subtitle && <p className="mt-2 text-subhead text-label-2">{subtitle}</p>}
+          {subtitle && <p className="mt-3 text-subhead leading-relaxed text-label-2">{subtitle}</p>}
         </div>
         {error && (
           <div className="mb-6">
@@ -62,9 +62,9 @@ export function StepFooter({
   note?: ReactNode;
   nextDisabled?: boolean;
 }) {
-  const { t, isRtl } = useLanguage();
+  const { t, isRtl, language } = useLanguage();
   return (
-    <div className="mt-8 flex items-center justify-between gap-3 border-t border-separator pt-6">
+    <div className="mt-7 flex flex-col-reverse items-stretch justify-between gap-3 pt-1 sm:flex-row sm:flex-wrap sm:items-center">
       {onBack ? (
         <Button type="button" variant="secondary" onClick={onBack}>
           <ArrowLeft aria-hidden="true" className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />
@@ -73,11 +73,11 @@ export function StepFooter({
       ) : (
         <p className="hidden text-footnote text-label-2 sm:block">{note}</p>
       )}
-      <div className={`flex items-center gap-2 ${onBack ? "" : "ms-auto w-full sm:w-auto"}`}>
+      <div className="flex w-full items-center gap-2 sm:ms-auto sm:w-auto">
       {!onNext && (
         // Same submit, but returns to My Details afterwards (see afterSaveHref)
-        <Button type="submit" name="intent" value="later" variant="ghost" disabled={isSubmitting} className="hidden sm:inline-flex">
-          Save &amp; finish later
+        <Button type="submit" name="intent" value="later" variant="ghost" disabled={isSubmitting} className="step-save-later">
+          {language === "ar" ? "حفظ والإكمال لاحقًا" : "Save & finish later"}
         </Button>
       )}
       <Button
@@ -85,10 +85,10 @@ export function StepFooter({
         onClick={onNext}
         isLoading={isSubmitting}
         disabled={nextDisabled}
-        className={onBack ? "" : "w-full sm:w-auto"}
+        className="w-full sm:w-auto"
       >
         {nextIcon}
-        <span>{nextLabel || t("common.next")}</span>
+        <span>{nextLabel || (language === "ar" ? "حفظ ومتابعة" : "Save and continue")}</span>
         {!nextIcon && <ArrowRight aria-hidden="true" className={`h-4 w-4 ${isRtl ? "rotate-180" : ""}`} />}
       </Button>
       </div>
@@ -107,14 +107,14 @@ export function StepGroup({
   children: ReactNode;
 }) {
   return (
-    <div className="rounded-2xl p-4 shadow-[inset_0_0_0_1px_var(--separator)] sm:p-5">
+    <div className="brand-edge rounded-[28px] bg-surface p-5 shadow-card sm:p-7">
       {(title || action) && (
         <div className="mb-4 flex items-center justify-between gap-3">
-          {title && <h2 className="text-subhead font-semibold text-label">{title}</h2>}
+          {title && <h2 className="text-title3 font-semibold text-label">{title}</h2>}
           {action}
         </div>
       )}
-      <div className="space-y-4">{children}</div>
+      <div className="space-y-5">{children}</div>
     </div>
   );
 }

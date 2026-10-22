@@ -1,5 +1,6 @@
 "use client";
 
+import { ShieldCheck } from "lucide-react";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
@@ -23,7 +24,7 @@ export const IdentificationStep: React.FC<IdentificationStepProps> = ({
   residenceCountryCode = "GB",
 }) => {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -76,8 +77,10 @@ export const IdentificationStep: React.FC<IdentificationStepProps> = ({
 
   return (
     <StepShell title={t("identification.title")} subtitle={t("identification.subtitle")} error={serverError}>
+      <div className="mb-6 flex items-start gap-3 rounded-[18px] border border-tint/25 bg-tint/8 px-5 py-4 text-sm text-brand-light"><ShieldCheck aria-hidden="true" className="h-5 w-5 shrink-0" /><p>{language === "ar" ? "رقم هويتك مشفّر ومستنداتك محفوظة بشكل خاص. يتم تسجيل الوصول إليها." : "Your ID number is encrypted and your documents are stored privately. Access is logged."}</p></div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="identity-card step-fields space-y-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Select
             label={t("identification.documentType")}
             isRequired
@@ -102,7 +105,7 @@ export const IdentificationStep: React.FC<IdentificationStepProps> = ({
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Controller
             name="issuingCountry"
             control={control}
@@ -126,7 +129,7 @@ export const IdentificationStep: React.FC<IdentificationStepProps> = ({
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Controller
             name="frontFileKey"
             control={control}
@@ -159,7 +162,7 @@ export const IdentificationStep: React.FC<IdentificationStepProps> = ({
 
         {isUkResident && (
           <StepGroup title="UK right to work">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Select
                 label={t("identification.ukRightToWork")}
                 isRequired
@@ -186,6 +189,8 @@ export const IdentificationStep: React.FC<IdentificationStepProps> = ({
             </div>
           </StepGroup>
         )}
+
+        </div>
 
         <StepFooter onBack={() => router.push("/onboarding/contacts")} isSubmitting={isSubmitting} />
       </form>

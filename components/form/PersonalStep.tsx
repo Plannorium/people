@@ -92,7 +92,8 @@ export const PersonalStep: React.FC<PersonalStepProps> = ({ initialData, workEma
   return (
     <StepShell title={t("personal.title")} subtitle={t("personal.subtitle")} error={serverError}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="step-fields space-y-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Input
             label={t("personal.legalFirstName")}
             isRequired
@@ -109,7 +110,7 @@ export const PersonalStep: React.FC<PersonalStepProps> = ({ initialData, workEma
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Input
             label={t("personal.preferredName")}
             hint={t("personal.preferredNameHint")}
@@ -132,7 +133,7 @@ export const PersonalStep: React.FC<PersonalStepProps> = ({ initialData, workEma
           </Select>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="space-y-5">
           <Input
             label={t("personal.workEmail")}
             value={workEmail}
@@ -154,7 +155,7 @@ export const PersonalStep: React.FC<PersonalStepProps> = ({ initialData, workEma
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="space-y-5">
           <Controller
             name="mobileE164"
             control={control}
@@ -184,7 +185,7 @@ export const PersonalStep: React.FC<PersonalStepProps> = ({ initialData, workEma
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Select
             label={t("personal.preferredLanguage")}
             error={errors.preferredLanguage?.message}
@@ -207,6 +208,8 @@ export const PersonalStep: React.FC<PersonalStepProps> = ({ initialData, workEma
               />
             )}
           />
+        </div>
+
         </div>
 
         <StepFooter isSubmitting={isSubmitting} note={t("onboarding.savedNotice")} />

@@ -55,9 +55,9 @@ interface ReviewStepProps {
 function ReviewSection({ title, href, children }: { title: string; href: string; children: ReactNode }) {
   const { t } = useLanguage();
   return (
-    <section className="py-5 first:pt-0 last:pb-0">
+    <section className="brand-edge rounded-[28px] bg-surface p-5 shadow-card sm:p-7">
       <div className="mb-3 flex items-center justify-between gap-3">
-        <h2 className="text-subhead font-semibold text-label">{title}</h2>
+        <h2 className="text-title3 font-semibold text-label">{title}</h2>
         <Link href={href} className="text-subhead font-medium text-tint hover:underline">
           {t("common.edit")}
         </Link>
@@ -113,7 +113,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ employeeRecord, missing 
   if (isSuccess) {
     return (
       <div className="mx-auto w-full max-w-lg animate-rise-in">
-        <div className="rounded-[22px] bg-surface px-6 py-12 text-center shadow-card sm:px-10">
+        <div className="rounded-[28px] bg-surface px-6 py-12 text-center shadow-card sm:px-10">
           <CheckCircle2 aria-hidden="true" className="mx-auto h-14 w-14 text-success" strokeWidth={1.5} />
           <h1 className="mt-5 text-title1 font-bold text-label">{t("onboarding.successTitle")}</h1>
           <p className="mx-auto mt-2 max-w-sm text-subhead text-label-2">{t("onboarding.successMessage")}</p>
@@ -131,8 +131,8 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({ employeeRecord, missing 
   const idDoc = employeeRecord?.identification;
 
   return (
-    <StepShell title={t("review.title")} subtitle={t("review.subtitle")} error={serverError} width="max-w-3xl">
-      <div className="divide-y divide-separator">
+    <StepShell title={t("review.title")} subtitle={t("review.subtitle")} error={serverError} width="max-w-none">
+      <div className="space-y-5">
         <ReviewSection title={t("personal.title")} href="/onboarding/personal">
           <DetailList columns={3}>
             <DetailItem label="Legal name">

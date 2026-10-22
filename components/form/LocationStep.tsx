@@ -74,7 +74,8 @@ export const LocationStep: React.FC<LocationStepProps> = ({ initialData }) => {
   return (
     <StepShell title={t("location.title")} subtitle={t("location.subtitle")} error={serverError}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="step-fields space-y-5">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Controller
             name="countryCode"
             control={control}
@@ -116,7 +117,7 @@ export const LocationStep: React.FC<LocationStepProps> = ({ initialData }) => {
           {...register("addressLine2")}
         />
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Input
             label={t("location.city")}
             isRequired
@@ -136,9 +137,10 @@ export const LocationStep: React.FC<LocationStepProps> = ({ initialData }) => {
           />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Select
             label={t("location.timeZone")}
+            dir="ltr"
             isRequired
             error={errors.timeZone?.message}
             {...register("timeZone")}
@@ -150,16 +152,18 @@ export const LocationStep: React.FC<LocationStepProps> = ({ initialData }) => {
             ))}
           </Select>
 
-          <Select
-            label={t("location.workArrangement")}
-            isRequired
-            error={errors.workArrangement?.message}
-            {...register("workArrangement")}
-          >
-            <option value="Remote">{t("location.remote")}</option>
-            <option value="Office">{t("location.office")}</option>
-            <option value="Hybrid">{t("location.hybrid")}</option>
-          </Select>
+          <fieldset className="min-w-0">
+            <legend className="mb-1.5 text-footnote font-medium">{t("location.workArrangement")} <span className="text-tint" aria-hidden="true">*</span></legend>
+            <div className="grid min-h-[46px] grid-cols-3 gap-1 rounded-xl border border-white/12 bg-canvas p-1">
+              {(["Remote", "Hybrid", "Office"] as const).map((value) => (
+                <label key={value} className="cursor-pointer">
+                  <input type="radio" value={value} {...register("workArrangement")} className="peer sr-only" />
+                  <span className="flex min-h-9 items-center justify-center rounded-lg px-2 text-footnote text-label-2 peer-checked:bg-tint/15 peer-checked:text-tint peer-focus-visible:ring-2 peer-focus-visible:ring-tint">{t(`location.${value.toLowerCase()}`)}</span>
+                </label>
+              ))}
+            </div>
+            {errors.workArrangement && <p role="alert" className="mt-1.5 text-footnote text-[#F87171]">{errors.workArrangement.message}</p>}
+          </fieldset>
         </div>
 
         {officeRequired && (
@@ -178,6 +182,8 @@ export const LocationStep: React.FC<LocationStepProps> = ({ initialData }) => {
             </Select>
           </div>
         )}
+
+        </div>
 
         <StepFooter onBack={() => router.push("/onboarding/personal")} isSubmitting={isSubmitting} />
       </form>
