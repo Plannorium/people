@@ -54,14 +54,14 @@ export const EmergencySearchConsole: React.FC<EmergencySearchConsoleProps> = ({
           aria-label="Search staff by name, email, city or phone"
           autoComplete="off"
           autoFocus
-          className="h-12 w-full rounded-[12px] bg-surface ps-12 pe-12 text-body text-label shadow-card outline-none placeholder:text-label-3 focus:shadow-[inset_0_0_0_1px_var(--tint)] focus:ring-4 focus:ring-tint/15 [&::-webkit-search-cancel-button]:hidden"
+          className="h-14 w-full rounded-[12px] bg-surface ps-12 pe-12 text-body text-label shadow-card outline-none placeholder:text-label-3 focus:shadow-[inset_0_0_0_1px_var(--tint)] focus:ring-4 focus:ring-tint/15 [&::-webkit-search-cancel-button]:hidden"
         />
         {query && (
           <button
             type="button"
             onClick={() => setQuery("")}
             aria-label="Clear search"
-            className="pressable absolute inset-y-0 end-3 my-auto flex h-7 w-7 items-center justify-center rounded-full bg-fill-strong text-label-2"
+            className="pressable absolute inset-y-0 end-1 my-auto flex h-11 w-11 items-center justify-center rounded-full bg-fill-strong text-label-2"
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -78,7 +78,7 @@ export const EmergencySearchConsole: React.FC<EmergencySearchConsoleProps> = ({
 
       <div className="grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visible.length === 0 ? (
-          <div className="col-span-full rounded-[18px] bg-surface px-6 py-12 text-center text-subhead text-label-2 shadow-card">
+          <div className="col-span-full rounded-[24px] bg-surface px-6 py-12 text-center text-subhead text-label-2 shadow-card">
             {query.trim() ? <>No one matches &ldquo;{query}&rdquo;.</> : "No staff records yet."}
           </div>
         ) : (

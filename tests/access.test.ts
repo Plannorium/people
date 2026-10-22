@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { ForbiddenError } from "../lib/access";
+import { describe, it, expect, vi, afterEach } from "vitest";
+import { NextRequest } from "next/server";
+import { ForbiddenError, isTrustedOrigin } from "../lib/access";
 
 // Pure helper function representing the server-side authorization policy
 function checkSelfOrHr(
@@ -53,5 +54,24 @@ describe("Access Control & Role Guards", () => {
     // Owner only route
     expect(() => checkRole(hr, ["owner"])).toThrow(ForbiddenError);
     expect(checkRole(owner, ["owner"])).toBe(true);
+  });
+});
+
+describe("isTrustedOrigin", () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  const post = (url: string, origin?: string) =>
+    new NextRequest(url, { method: "POST", headers: origin ? { origin } : {} });
+
+  it("accepts the deployment the request reached, even when NEXTAUTH_URL points elsewhere", () => {
+    vi.stubEnv("NEXTAUTH_URL", "https://people.plannorium.com");
+    expect(isTrustedOrigin(post("http://localhost:3000/api/employee/submit", "http://localhost:3000"))).toBe(true);
+    expect(isTrustedOrigin(post("https://people.plannorium.com/api/employee/submit", "https://people.plannorium.com"))).toBe(true);
+  });
+
+  it("rejects other sites and requests without an Origin", () => {
+    vi.stubEnv("NEXTAUTH_URL", "https://people.plannorium.com");
+    expect(isTrustedOrigin(post("https://people.plannorium.com/api/employee/submit", "https://evil.example.com"))).toBe(false);
+    expect(isTrustedOrigin(post("https://people.plannorium.com/api/employee/submit"))).toBe(false);
   });
 });

@@ -90,7 +90,8 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
           onClick={() => setIsOpen(!isOpen)}
           className={`${fieldClass(!!error)} flex items-center justify-between gap-2 text-start ${isOpen ? "bg-surface shadow-[inset_0_0_0_1px_var(--tint)] ring-4 ring-tint/15" : ""}`}
         >
-          <span className={`truncate ${selectedCountry ? "text-label" : "text-label-3"}`}>
+          <Search aria-hidden="true" className="h-4 w-4 shrink-0 text-label-2" />
+          <span className={`min-w-0 flex-1 truncate ${selectedCountry ? "text-label" : "text-label-3"}`}>
             {selectedCountry
               ? isAr
                 ? selectedCountry.nameAr
@@ -106,7 +107,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
         </button>
 
         {isOpen && (
-          <div className="absolute z-50 mt-2 w-full min-w-[16rem] origin-top animate-pop-in overflow-hidden rounded-[14px] bg-surface shadow-pop">
+          <div className="absolute z-50 mt-2 w-full min-w-0 origin-top animate-pop-in overflow-hidden rounded-[14px] bg-surface shadow-pop">
             <div className="p-2">
               <div className="relative">
                 <Search aria-hidden="true" className="pointer-events-none absolute inset-y-0 start-2.5 my-auto h-4 w-4 text-label-3" />
@@ -116,7 +117,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={isAr ? "بحث" : "Search"}
                   aria-label={isAr ? "ابحث عن الدولة" : "Search countries"}
-                  className="h-9 w-full rounded-[9px] bg-fill ps-8 pe-3 text-subhead text-label outline-none placeholder:text-label-3"
+                  className="h-11 w-full rounded-xl border border-white/12 bg-canvas ps-8 pe-3 text-subhead text-label outline-none placeholder:text-label-3"
                   autoFocus
                 />
               </div>
@@ -134,7 +135,7 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
                       <button
                         type="button"
                         onClick={() => choose(c.code)}
-                        className={`flex min-h-10 w-full items-center gap-2 rounded-lg px-2.5 text-start text-subhead transition-colors hover:bg-fill focus-visible:bg-fill focus-visible:outline-none ${
+                        className={`flex min-h-11 w-full items-center gap-2 rounded-lg px-2.5 text-start text-subhead transition-colors hover:bg-fill focus-visible:bg-fill focus-visible:outline-none ${
                           isSelected ? "font-semibold text-tint" : "text-label"
                         }`}
                       >

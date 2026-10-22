@@ -37,12 +37,13 @@ export const EmploymentStep: React.FC<EmploymentStepProps> = ({
 
   return (
     <StepShell title={t("employment.title")} subtitle={t("employment.subtitle")}>
-      <div className="rounded-2xl p-4 shadow-[inset_0_0_0_1px_var(--separator)] sm:p-5">
+      <div className="step-fields !bg-surface-2">
+        <p className="mb-5 inline-flex rounded-full bg-tint/10 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-tint">{t("employment.title")} · HR</p>
         <DetailList>
           <DetailItem label={t("employment.jobTitle")}>{employmentData?.jobTitle}</DetailItem>
           <DetailItem label={t("employment.department")}>{employmentData?.department}</DetailItem>
           <DetailItem label={t("employment.lineManager")}>{employmentData?.lineManager}</DetailItem>
-          <DetailItem label={t("employment.startDate")}>{startDate}</DetailItem>
+          <DetailItem label={t("employment.startDate")} ltr>{startDate}</DetailItem>
           <DetailItem label={t("employment.employmentType")}>{employmentData?.employmentType}</DetailItem>
           <DetailItem label={t("employment.employeeId")} mono ltr>
             {employmentData?.employeeId}

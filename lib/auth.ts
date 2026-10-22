@@ -1,3 +1,6 @@
+import { randomUUID } from "node:crypto";
+import { configuredAdminRole, effectiveAdminRole } from "./admin-policy";
+import { verifyAdminCode } from "./admin-verification";
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -37,13 +40,13 @@ export function isEmailAllowed(email: string): boolean {
   if (list.length === 0) return true;
   const normalized = email.toLowerCase().trim();
   const owner = process.env.OWNER_EMAIL?.toLowerCase().trim();
-  return normalized === owner || list.includes(normalized);
+  return normalized === owner || configuredAdminRole(normalized) !== "employee" || list.includes(normalized);
 }
 
 // Passwordless dev sign-in: local `next dev` only. Never in a production build or on Vercel,
 // whatever the env vars say, because it lets anyone sign in as any staff email.
 export const DEV_AUTH_ENABLED =
-  process.env.NODE_ENV === "development" && !process.env.VERCEL;
+  process.env.NODE_ENV === "development" && !process.env.VERCEL && process.env.PEOPLE_ENABLE_DEV_AUTH === "true";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -105,20 +108,16 @@ export const authOptions: NextAuthOptions = {
             name: "Plannorium Dev Access",
             credentials: {
               email: { label: "Work Email", type: "email", placeholder: "alex@plannorium.com" },
-              role: { label: "Role", type: "text", placeholder: "employee | hr_admin | owner" },
             },
             async authorize(credentials) {
               if (!credentials?.email) return null;
               const email = credentials.email.toLowerCase().trim();
               const allowedDomain = getAllowedEmailDomain();
-              const initialOwner = process.env.OWNER_EMAIL?.toLowerCase().trim();
-              const isOwner = Boolean(initialOwner && email === initialOwner);
+              const isOwner = configuredAdminRole(email) !== "employee";
               if (!isOwner && !email.endsWith(`@${allowedDomain}`)) {
-                throw new Error(`Only @${allowedDomain} accounts (or the owner email: ${initialOwner || "configured in .env"}) are allowed.`);
+                throw new Error(`Only @${allowedDomain} accounts or explicitly authorized admin accounts are allowed.`);
               }
-              const requested = credentials.role;
-              const role: UserRole =
-                requested === "hr_admin" || requested === "owner" ? requested : (isOwner ? "owner" : "employee");
+              const role: UserRole = "employee";
               return {
                 id: `dev_${email}`,
                 email,
@@ -137,8 +136,7 @@ export const authOptions: NextAuthOptions = {
       if (!email) return false;
 
       const allowedDomain = getAllowedEmailDomain();
-      const initialOwner = process.env.OWNER_EMAIL?.toLowerCase().trim();
-      const isOwnerEmail = Boolean(initialOwner && email === initialOwner);
+      const isOwnerEmail = configuredAdminRole(email) !== "employee";
 
       // Restrict strictly to configured domain (e.g. plannorium.com), unless it is the explicitly configured owner
       if (!isOwnerEmail && !email.endsWith(`@${allowedDomain}`)) {
@@ -172,8 +170,7 @@ export const authOptions: NextAuthOptions = {
 
         if (!employee) {
           // The first owner must be named explicitly; no default address gets owner rights
-          const initialOwner = process.env.OWNER_EMAIL?.toLowerCase().trim();
-          const role: UserRole = initialOwner && email === initialOwner ? "owner" : "employee";
+          const role: UserRole = configuredAdminRole(email);
 
           employee = await Employee.create({
             authSubject: authSub,
@@ -189,15 +186,11 @@ export const authOptions: NextAuthOptions = {
           await employee.save();
         }
 
-        // Dev sign-in only: apply the role picked on the sign-in screen so each role can be tested
-        if (DEV_AUTH_ENABLED && account?.provider === "dev-login") {
-          const devRole = (user as { role?: string }).role;
-          if (devRole === "employee" || devRole === "hr_admin" || devRole === "owner") {
-            employee.role = devRole;
-            await employee.save();
-          }
+        const configuredRole = configuredAdminRole(email);
+        if (employee.role !== configuredRole) {
+          employee.role = configuredRole;
+          await employee.save();
         }
-
         return true;
       } catch (err) {
         console.error("[Auth] Error finding or creating employee record:", err);
@@ -205,10 +198,15 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.sub = user.id;
         token.email = user.email;
+        token.adminChallengeId = randomUUID();
+        token.adminVerifiedAt = undefined;
+      }
+      if (!token.adminChallengeId) {
+        token.adminChallengeId = randomUUID();
       }
 
       // Lookup role and employee record ID from DB
@@ -220,8 +218,16 @@ export const authOptions: NextAuthOptions = {
             // Removed from the invite list: treated like an ended account on the next request
             token.role = "employee";
             token.status = "offboarded";
+          } else if (emp?.status === "offboarded") {
+            token.role = "employee";
+            token.status = "offboarded";
+            token.adminVerifiedAt = undefined;
           } else if (emp) {
-            token.role = emp.role;
+            if (trigger === "update" && token.adminChallengeId && session && typeof session === "object" && "adminVerificationCode" in session) {
+              const valid = await verifyAdminCode(token.email, token.adminChallengeId, session.adminVerificationCode);
+              if (valid) token.adminVerifiedAt = Date.now();
+            }
+            token.role = token.adminChallengeId ? effectiveAdminRole(token.email, token.adminVerifiedAt) : "employee";
             token.status = emp.status;
             token.employeeRecordId = emp._id.toString();
           } else {
@@ -231,7 +237,12 @@ export const authOptions: NextAuthOptions = {
             token.employeeRecordId = undefined;
           }
         } catch (e) {
-          console.error("[Auth] Error fetching user role for JWT:", e);
+          // A database or verification failure must never preserve old elevated privileges.
+          token.role = "employee";
+          token.status = "offboarded";
+          token.employeeRecordId = undefined;
+          token.adminVerifiedAt = undefined;
+          console.error("[Auth] Could not refresh session permissions.", e instanceof Error ? e.name : "UnknownError");
         }
       }
 
@@ -244,6 +255,7 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).role = token.role || "employee";
         (session.user as any).status = token.status || "incomplete";
         (session.user as any).employeeRecordId = token.employeeRecordId;
+        session.user.adminVerificationRequired = token.status !== "offboarded" && configuredAdminRole(token.email || "") !== "employee" && token.role === "employee";
       }
       return session;
     },

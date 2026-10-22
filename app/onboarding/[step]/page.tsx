@@ -138,6 +138,7 @@ export default async function OnboardingStepPage({
       // Only the fields the summary shows; encrypted values never leave the server
       return (
         <ReviewStep
+          workEmail={employee.workEmail}
           missing={missingSteps(getStepCompletion(employee))}
           employeeRecord={{
             personal: {
@@ -180,7 +181,7 @@ export default async function OnboardingStepPage({
   const completion = getStepCompletion(employee);
   const content = await renderStep();
   return (
-    <div className="w-full space-y-6 sm:space-y-8">
+    <div className="grid w-full min-w-0 gap-8 min-[860px]:grid-cols-[240px_minmax(0,1fr)] min-[1100px]:grid-cols-[260px_minmax(0,1fr)]">
       <ProgressSteps completion={completion} />
       {content}
     </div>

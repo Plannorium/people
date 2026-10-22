@@ -93,8 +93,8 @@ export const RemindersClient: React.FC<RemindersClientProps> = ({ employees }) =
       {feedback?.success && <Banner tone="success">{feedback.success}</Banner>}
       {feedback?.error && <Banner tone="danger">{feedback.error}</Banner>}
 
-      <div className="overflow-hidden rounded-[18px] bg-surface shadow-card">
-        <div className="overflow-x-auto">
+      <div className="overflow-hidden rounded-[24px] bg-surface shadow-card">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[600px] border-collapse text-start">
             <thead>
               <tr className="border-b border-separator text-footnote text-label-2">

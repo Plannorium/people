@@ -39,11 +39,14 @@ Create `.env.local` based on `.env.example`:
 
 ```bash
 NEXTAUTH_URL=https://people.plannorium.com
-NEXTAUTH_SECRET=your-nextauth-secret-here
+NEXTAUTH_SECRET= # generate locally: openssl rand -base64 32
 PLANNORIUM_ID_ISSUER=https://id.plannorium.com
 PLANNORIUM_ID_CLIENT_ID=
 PLANNORIUM_ID_CLIENT_SECRET=
 ALLOWED_EMAIL_DOMAIN=plannorium.com
+OWNER_EMAIL=
+ADMIN_EMAILS=
+PEOPLE_ENABLE_DEV_AUTH=false
 MONGODB_URI=mongodb+srv://...
 FIELD_ENCRYPTION_KEY= # 32-byte base64 encoded string: openssl rand -base64 32
 CLOUDINARY_CLOUD_NAME=
@@ -69,12 +72,13 @@ npm test
 npm run dev
 ```
 
-**Local sign-in without Plannorium ID:** `npm run dev` shows a "dev sign-in" box where you type any
-`@plannorium.com` email and pick a role. It exists only under `next dev` on your machine. It is switched
-off in every production build and on Vercel, and no environment variable can turn it on.
+**Admin access:** set `OWNER_EMAIL` to your exact primary account, and optionally list your other authorized admin addresses in `ADMIN_EMAILS` (comma-separated). These values are empty in `.env.example`; no address or domain is implicitly an admin. Database role edits cannot grant access to an unlisted email. Settings remain owner-only.
 
-**First owner:** set `OWNER_EMAIL` before the first sign-in. That account becomes `owner`; everyone else
-starts as `employee`. There is no default owner.
+Admins first sign in through a verified Plannorium ID or Google identity, then request a six-digit email code at `/verify-admin`. Codes expire within ten minutes, permit five attempts per active challenge window, and work only with the sign-in that requested them. Resends share a one-minute account cooldown across server instances. Codes are stored as keyed digests, consumed atomically, and never logged. Admin verification lasts at most eight hours and resets on every new primary sign-in. Existing sessions must sign in again after this change.
+
+**Required delivery configuration:** fill `RESEND_API_KEY`, `EMAIL_FROM` (a sender verified with Resend), a strong `NEXTAUTH_SECRET` (at least 32 characters), `NEXTAUTH_URL`, and the existing identity/database settings. Missing email configuration or failed delivery never grants admin access. No live delivery is claimed until those values and the sender domain are configured. Keep all actual secrets out of Git.
+
+**Local test login:** passwordless development login is disabled by default and has no role picker. It requires the explicit server-side `PEOPLE_ENABLE_DEV_AUTH=true`, and is still unavailable in production builds and on Vercel. Do not enable it on a shared server. It cannot bypass admin email verification. The regular sign-in screen uses identity providers only.
 
 **Scheduled job:** `vercel.json` runs `/api/cron/review-and-retention` daily at 03:00 UTC. It refuses to
 run unless `CRON_SECRET` is set (Vercel sends it automatically as a Bearer token).

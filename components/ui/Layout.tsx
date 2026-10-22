@@ -40,9 +40,9 @@ export function SectionCard({
   className?: string;
 }) {
   return (
-    <section className={`rounded-[18px] bg-surface p-5 shadow-card sm:p-6 ${className}`}>
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="flex items-center gap-2 text-body font-semibold text-label">
+    <section className={`brand-edge rounded-[28px] bg-surface p-5 shadow-card sm:p-7 ${className}`}>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <h2 className="flex items-center gap-2 text-title3 font-semibold text-label">
           {icon && <span className="text-label-2 [&>svg]:h-[18px] [&>svg]:w-[18px]">{icon}</span>}
           <span>{title}</span>
         </h2>
@@ -110,7 +110,7 @@ export function Banner({
   return (
     <div
       role={tone === "danger" ? "alert" : "status"}
-      className={`flex animate-fade-in flex-col gap-3 rounded-[14px] px-4 py-3.5 sm:flex-row sm:items-center ${conf.box}`}
+      className={`flex animate-fade-in flex-col gap-3 rounded-[18px] px-5 py-4 sm:flex-row sm:items-center ${conf.box}`}
     >
       <div className="flex flex-1 items-start gap-3">
         <Icon aria-hidden="true" className={`mt-0.5 h-[18px] w-[18px] shrink-0 ${conf.iconColor}`} />
@@ -141,7 +141,7 @@ export function Avatar({ name, size = "md" }: { name: string; size?: "sm" | "md"
   return (
     <span
       aria-hidden="true"
-      className={`flex shrink-0 select-none items-center justify-center rounded-full bg-gradient-to-b from-[#a5a5aa] to-[#86868b] font-semibold text-white dark:from-[#6e6e73] dark:to-[#48484a] ${sizes[size]}`}
+      className={`flex shrink-0 select-none items-center justify-center rounded-full bg-tint/15 font-semibold text-tint ${sizes[size]}`}
     >
       {initials}
     </span>

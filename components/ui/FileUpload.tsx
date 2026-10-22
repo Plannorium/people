@@ -109,10 +109,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <div className="w-full">
-      <label htmlFor={inputId} className="mb-1.5 flex items-baseline gap-1 text-footnote font-medium text-label-2">
+      <label htmlFor={inputId} className="mb-1.5 flex items-baseline gap-1 text-footnote font-medium text-label">
         <span>{label}</span>
         {isRequired && (
-          <span aria-hidden="true" className="text-label-3">
+          <span aria-hidden="true" className="text-tint">
             *
           </span>
         )}
@@ -129,7 +129,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       />
 
       {value ? (
-        <div className="flex min-h-14 items-center gap-3 rounded-xl bg-fill px-3.5 py-2.5">
+        <div className="flex min-h-36 items-center gap-3 rounded-[18px] border border-tint/25 bg-tint/8 px-5 py-5">
           <FileCheck2 aria-hidden="true" className="h-5 w-5 shrink-0 text-success" />
           <div className="min-w-0 flex-1">
             <p className="truncate text-subhead font-medium text-label">{fileName || "Document on file"}</p>
@@ -138,7 +138,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           <button
             type="button"
             onClick={handleClear}
-            className="pressable flex h-8 w-8 items-center justify-center rounded-full text-label-2 hover:bg-fill-strong hover:text-label"
+            className="pressable flex h-11 w-11 items-center justify-center rounded-full text-label-2 hover:bg-fill-strong hover:text-label"
             aria-label={`Remove ${label}`}
           >
             <X className="h-4 w-4" />
@@ -162,12 +162,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
           onClick={() => !isUploading && fileInputRef.current?.click()}
-          className={`pressable flex min-h-28 flex-col items-center justify-center gap-2 rounded-[14px] border-[1.5px] border-dashed px-4 py-6 text-center transition-colors ${
+          className={`pressable flex min-h-36 flex-col items-center justify-center gap-2 rounded-[18px] border-[1.5px] border-dashed px-4 py-6 text-center transition-colors ${
             isDragging
               ? "border-tint bg-tint/5"
               : message
                 ? "border-danger/50 bg-danger/5"
-                : "border-separator bg-surface-2/60 hover:bg-fill"
+                : "border-white/15 bg-canvas hover:border-tint/40 hover:bg-tint/5"
           }`}
         >
           {isUploading ? (

@@ -11,6 +11,7 @@ declare module "next-auth" {
       role: UserRole;
       status: EmployeeStatus;
       employeeRecordId?: string;
+      adminVerificationRequired?: boolean;
     };
   }
 
@@ -25,6 +26,8 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     sub?: string;
+    adminChallengeId?: string;
+    adminVerifiedAt?: number;
     role?: UserRole;
     status?: EmployeeStatus;
     employeeRecordId?: string;

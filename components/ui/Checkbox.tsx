@@ -17,7 +17,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <div className="w-full">
         <label
           htmlFor={inputId}
-          className={`group flex items-start gap-3 cursor-pointer select-none text-subhead text-label ${className}`}
+          className={`group flex items-start gap-3 cursor-pointer select-none text-sm text-label ${className}`}
         >
           <input
             type="checkbox"
@@ -31,12 +31,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           {/* The box is the input's sibling, so peer-checked can style it and the tick inside it */}
           <span
             aria-hidden="true"
-            className={`mt-px flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-[7px] bg-fill transition-[background-color,transform,box-shadow] duration-150 group-active:scale-90 peer-checked:bg-tint peer-focus-visible:ring-4 peer-focus-visible:ring-tint/25 peer-checked:[&>svg]:opacity-100 peer-checked:[&>svg]:scale-100 ${
+            className={`mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded bg-fill transition-[background-color,transform,box-shadow] duration-150 group-active:scale-90 peer-checked:bg-tint peer-focus-visible:ring-4 peer-focus-visible:ring-tint/25 peer-checked:[&>svg]:opacity-100 peer-checked:[&>svg]:scale-100 ${
               error ? "shadow-[inset_0_0_0_1px_var(--danger)]" : "shadow-[inset_0_0_0_1px_var(--separator)]"
             }`}
           >
             <svg
-              className="h-3.5 w-3.5 scale-75 text-white opacity-0 transition-[opacity,transform] duration-150 dark:text-black"
+              className="h-3.5 w-3.5 scale-75 text-canvas opacity-0 transition-[opacity,transform] duration-150"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -45,10 +45,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </span>
-          <span className="flex-1 leading-[1.4]">
+          <span className="flex-1 leading-[1.55]">
             {label}
             {isRequired && (
-              <span aria-hidden="true" className="ms-1 text-label-3">
+              <span aria-hidden="true" className="ms-1 text-tint">
                 *
               </span>
             )}

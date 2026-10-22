@@ -23,7 +23,9 @@ function TextArea({
   maxLength,
   error,
   registration,
+  count,
 }: {
+  count: number;
   label: string;
   placeholder: string;
   rows: number;
@@ -33,14 +35,14 @@ function TextArea({
 }) {
   const id = useId();
   return (
-    <FieldShell id={id} label={label} error={error} messageId={`${id}-message`}>
+    <FieldShell id={id} label={<span className="flex w-full items-center justify-between gap-3"><span>{label}</span><span dir="ltr" className="text-caption font-normal tabular-nums text-label-2">{count}/{maxLength}</span></span>} error={error} messageId={`${id}-message`}>
       <textarea
         id={id}
         rows={rows}
         maxLength={maxLength}
         placeholder={placeholder}
         aria-invalid={error ? true : undefined}
-        className={`${fieldClass(!!error)} resize-y leading-normal`}
+        className={`${fieldClass(!!error)} min-h-24 resize-y leading-normal`}
         {...registration}
       />
     </FieldShell>
@@ -49,7 +51,7 @@ function TextArea({
 
 export const HealthStep: React.FC<HealthStepProps> = ({ initialData }) => {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -106,12 +108,13 @@ export const HealthStep: React.FC<HealthStepProps> = ({ initialData }) => {
       }
       error={serverError}
     >
-      <div className="mb-6 flex items-start gap-3 rounded-[14px] bg-fill px-4 py-3.5 text-subhead text-label-2">
+      <div className="mb-6 flex items-start gap-3 rounded-[18px] border border-tint/25 bg-tint/8 px-5 py-4 text-subhead text-label-2">
         <Lock aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-label" />
-        <span>Encrypted, and only shown to HR if you need help at work. Every view is logged.</span>
+        <span>{language === "ar" ? "مشفّرة ولا تُعرض للموارد البشرية إلا لمساعدتك في العمل. يتم تسجيل كل مشاهدة." : "Encrypted, and only shown to HR if you need help at work. Every view is logged."}</span>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+        <div className="step-fields space-y-5">
         <div className="sm:max-w-[50%] sm:pe-2">
           <Select
             label={t("health.bloodType")}
@@ -128,6 +131,7 @@ export const HealthStep: React.FC<HealthStepProps> = ({ initialData }) => {
         </div>
 
         <TextArea
+          count={(allergies || "").length}
           label={t("health.allergies")}
           placeholder={t("health.allergiesHint")}
           rows={2}
@@ -137,6 +141,7 @@ export const HealthStep: React.FC<HealthStepProps> = ({ initialData }) => {
         />
 
         <TextArea
+          count={(medicalInfo || "").length}
           label={t("health.medicalInfo")}
           placeholder={t("health.medicalInfoHint")}
           rows={3}
@@ -146,6 +151,7 @@ export const HealthStep: React.FC<HealthStepProps> = ({ initialData }) => {
         />
 
         <TextArea
+          count={(accessibilityNeeds || "").length}
           label={t("health.accessibilityNeeds")}
           placeholder={t("health.accessibilityNeedsHint")}
           rows={3}
@@ -154,9 +160,12 @@ export const HealthStep: React.FC<HealthStepProps> = ({ initialData }) => {
           registration={register("accessibilityNeeds")}
         />
 
+        </div>
+
         {hasEnteredAnyHealth && (
-          <div className="animate-fade-in">
+          <div className={`animate-fade-in rounded-[20px] border ${watch("healthConsent") ? "border-tint/25" : "border-warning/40"}`}>
             <StepGroup title={t("health.consentTitle")}>
+              {!watch("healthConsent") && <p className="text-xs text-[#FBBF24]">{language === "ar" ? "الموافقة مطلوبة لأنك أدخلت معلومات صحية." : "Required because you’ve filled in a health field."}</p>}
               <Checkbox
                 isRequired
                 label={t("health.consentCheckbox")}

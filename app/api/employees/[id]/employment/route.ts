@@ -1,3 +1,4 @@
+import { configuredAdminRole } from "@/lib/admin-policy";
 import { NextRequest, NextResponse } from "next/server";
 import { isValidObjectId } from "mongoose";
 import { requireRole, apiError } from "@/lib/access";
@@ -29,6 +30,9 @@ export async function PUT(
 
     const fieldsTouched: string[] = [];
 
+    if (body.role && body.role !== employee.role && body.role !== configuredAdminRole(employee.workEmail)) {
+      return NextResponse.json({ error: "Admin roles must match the owner’s configured email list." }, { status: 403 });
+    }
     // Role changes require 'owner' role
     if (body.role && body.role !== employee.role) {
       if (session.user.role !== "owner") {

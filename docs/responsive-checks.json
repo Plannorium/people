@@ -1,0 +1,1026 @@
+{
+  "english": [
+    {
+      "dir": "ltr",
+      "path": "/onboarding/personal",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/location",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/contacts",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/identification",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/health",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/employment",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/review",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/sign-in",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/me",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/privacy",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/people/synthetic",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/emergency",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/reminders",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/settings",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/audit",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/verify-admin",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/personal",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/location",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/contacts",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/identification",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/health",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/employment",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/review",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/sign-in",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/me",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/privacy",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/people/synthetic",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/emergency",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/reminders",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/settings",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/audit",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/verify-admin",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/personal",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/location",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/contacts",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/identification",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/health",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/employment",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/review",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/sign-in",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/me",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/privacy",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/people/synthetic",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/emergency",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/reminders",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/settings",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/audit",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/verify-admin",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/personal",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/location",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/contacts",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/identification",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/health",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/employment",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/review",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/sign-in",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/me",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/privacy",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/people/synthetic",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/emergency",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/reminders",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/settings",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/audit",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/verify-admin",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/personal",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/location",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/contacts",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/identification",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/health",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/employment",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/onboarding/review",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/sign-in",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/me",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/privacy",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/people/synthetic",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/emergency",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/reminders",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/settings",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/admin/audit",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "ltr",
+      "path": "/verify-admin",
+      "scroll": 1440,
+      "w": 1440
+    }
+  ],
+  "arabic": [
+    {
+      "dir": "rtl",
+      "path": "/onboarding/personal",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/location",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/contacts",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/identification",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/health",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/employment",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/review",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/sign-in",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/me",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/privacy",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/people/synthetic",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/emergency",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/reminders",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/settings",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/audit",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/verify-admin",
+      "scroll": 360,
+      "w": 360
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/personal",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/location",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/contacts",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/identification",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/health",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/employment",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/review",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/sign-in",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/me",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/privacy",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/people/synthetic",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/emergency",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/reminders",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/settings",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/audit",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/verify-admin",
+      "scroll": 390,
+      "w": 390
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/personal",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/location",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/contacts",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/identification",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/health",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/employment",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/review",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/sign-in",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/me",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/privacy",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/people/synthetic",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/emergency",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/reminders",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/settings",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/audit",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/verify-admin",
+      "scroll": 768,
+      "w": 768
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/personal",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/location",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/contacts",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/identification",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/health",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/employment",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/review",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/sign-in",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/me",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/privacy",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/people/synthetic",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/emergency",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/reminders",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/settings",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/audit",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/verify-admin",
+      "scroll": 1024,
+      "w": 1024
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/personal",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/location",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/contacts",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/identification",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/health",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/employment",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/onboarding/review",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/sign-in",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/me",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/privacy",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/people/synthetic",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/emergency",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/reminders",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/settings",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/admin/audit",
+      "scroll": 1440,
+      "w": 1440
+    },
+    {
+      "dir": "rtl",
+      "path": "/verify-admin",
+      "scroll": 1440,
+      "w": 1440
+    }
+  ]
+}

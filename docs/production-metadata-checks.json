@@ -1,0 +1,114 @@
+[
+  {
+    "path": "/sign-in",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "location": null,
+    "metadata": [
+      {
+        "name": "robots",
+        "content": "noindex, nofollow"
+      },
+      {
+        "name": "robots",
+        "content": "noindex, nofollow"
+      },
+      {
+        "rel": "canonical",
+        "href": "https://people.plannorium.com/sign-in"
+      },
+      {
+        "property": "og:title",
+        "content": "Sign in | Plannorium People"
+      },
+      {
+        "property": "og:description",
+        "content": "Sign in with your Plannorium identity to manage your staff profile, emergency contacts and workplace details in the private Plannorium People portal."
+      },
+      {
+        "property": "og:url",
+        "content": "https://people.plannorium.com/sign-in"
+      },
+      {
+        "property": "og:site_name",
+        "content": "Plannorium People"
+      },
+      {
+        "property": "og:image",
+        "content": "https://people.plannorium.com/favicon-people-og.png"
+      },
+      {
+        "property": "og:image:width",
+        "content": "1200"
+      },
+      {
+        "property": "og:image:height",
+        "content": "630"
+      },
+      {
+        "property": "og:image:alt",
+        "content": "Plannorium People \u2014 Keystone Bars wordmark on obsidian"
+      },
+      {
+        "property": "og:type",
+        "content": "website"
+      }
+    ]
+  },
+  {
+    "path": "/privacy",
+    "status": 307,
+    "robots": "noindex, nofollow",
+    "location": "/sign-in?callbackUrl=http%3A%2F%2Flocalhost%3A3023%2Fprivacy"
+  },
+  {
+    "path": "/verify-admin",
+    "status": 307,
+    "robots": "noindex, nofollow",
+    "location": "/sign-in?callbackUrl=http%3A%2F%2Flocalhost%3A3023%2Fverify-admin"
+  },
+  {
+    "path": "/admin",
+    "status": 307,
+    "robots": "noindex, nofollow",
+    "location": "/sign-in?callbackUrl=http%3A%2F%2Flocalhost%3A3023%2Fadmin"
+  },
+  {
+    "path": "/robots.txt",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "location": null,
+    "body": "User-Agent: *\nDisallow: /\n\n"
+  },
+  {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "location": null,
+    "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n</urlset>\n"
+  },
+  {
+    "path": "/favicon-people.png",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "location": null
+  },
+  {
+    "path": "/favicon-apple.png",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "location": null
+  },
+  {
+    "path": "/favicon-people-og.png",
+    "status": 200,
+    "robots": "noindex, nofollow",
+    "location": null
+  },
+  {
+    "path": "/api/admin-verification/send",
+    "status": 401,
+    "robots": "noindex, nofollow",
+    "location": null
+  }
+]
